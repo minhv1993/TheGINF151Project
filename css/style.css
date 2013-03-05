@@ -1,8 +1,38 @@
+body {
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+h1 {margin-bottom:0;}
+h5 {margin-top:0;}
+
 #nav-bar {
 	height:40px;
 	width:100%;
 	position:fixed;
 	top:0;
 	left:0;
-	background-color:#010101;
+	background-color:rgb(57, 107, 158);
+}
+
+#nav-bar h2 {
+	margin:0;
+}
+
+#home-content {
+	position:fixed;
+	width:100%;
+	top:40px;
+	left:0px;
+	text-align:center;
+}
+
+#home-content a {
+	width:49%;
+	margin:0.5% 0;
+}
+
+a.setting-button {
+	padding:7px;
+	margin:0;
+	float:right;
 }
