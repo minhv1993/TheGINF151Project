@@ -18,13 +18,11 @@ h5 {margin-top:0;}
 
 #nav-bar h2 {
 	margin:0;
+	padding:0;
 }
 
 #home-content {
-	position:fixed;
 	width:100%;
-	top:55px;
-	left:0px;
 	text-align:center;
 }
 
@@ -36,7 +34,9 @@ h5 {margin-top:0;}
 a.setting-button {
 	padding:14px;
 	margin:0;
-	float:right;
+	position:fixed;
+	top:0px;
+	right:0px;
 }
 
 

@@ -11,12 +11,19 @@
 <title>BillSplit</title>
 </head>
 <body>
-	<div id="nav-bar"><a id="home-screen-setting" class="setting-button" href="#" data-role="button" data-iconpos="notext" data-icon="bars" data-theme="b" data-corners="false"></a></div>
+	<div data-role="header" data-theme="b" data-position="fixed">
+		<span class="ui-title"></span>
+		<a href="#homeSettings" class="ui-btn-right" data-role="button" data-rel="popup" data-transition="pop" data-inline="true" data-position-to="window" data-iconpos="notext" data-icon="gear" data-theme="b" data-corners="false"></a>
+		<div data-role="popup" id="homeSettings" data-overlay-theme="a" data-dismissible="false" data-theme="b" class="ui-content" data-corners="false">
+    		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			<a href="#">Account Settings</a>
+		</div>
+	</div>
 	<div id="home-content">
 		<div id="app-name"><h1>BillSplit</h1><h5>An easier way to to split the bill</h5>
 		</div>	
 		<div id="nav-button-row-1">
-			<a href="#" data-role="button" data-theme="b" data-inline="true" data-corners="false">Quick Event</a>
+			<a href="quick-select.html" data-role="button" data-theme="b" data-inline="true" data-corners="false">Quick Event</a>
 			<a href="#" data-role="button" data-theme="b" data-inline="true" data-corners="false">Event History</a>
 		</div>
 		<div id="nav-button-row-2">
