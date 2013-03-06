@@ -1,5 +1,7 @@
 <contacts>
-    <name>Kelvin Nguyen</name>
-    <phone></phone>
-    <email>kelvinn@uci.edu</email>
+    <contact>
+    	<name>Kelvin Nguyen</name>
+    	<phone></phone>
+    	<email>kelvinn@uci.edu</email>
+    </contact>
 </contacts>
