@@ -120,3 +120,17 @@ a.setting-button {
 	margin-top:5%;
 	float:right;
 }
+
+ul 
+{
+	list-style-type:none;
+	margin-left:-50px;
+}
+
+li {
+    display: block;
+    text-align:center;
+}
+li:hover {
+    background: #D0D3AB;
+}

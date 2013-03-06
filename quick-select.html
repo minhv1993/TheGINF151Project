@@ -10,23 +10,105 @@
 </head>
 <body>
 <script>
+var foodItemList = new Array();
+
 
 $(function() {
 	
 });
 
+function foodItem(name, price)
+{
+	this.name = name; 
+	this.price = price;
+}
+
 function foodFormListener() {
 	
-	$('#food-user-label').click(function() {
+	$('#food-user-label-button').click(function() {
 		$('#food-item-list').hide('blind', 500);
 		$('#food-user-list').show('blind', 500);		
 	});
 	
-	$('#food-item-label').click(function() {
+	$('#food-item-label-button').click(function() {
 		$('#food-user-list').hide('blind', 500);		
 		$('#food-item-list').show('blind', 500);
 	});
 
+	
+	$('#food-item-dialog-list').dialog({
+		autoOpen: false,
+		resizable: false,
+		draggable: false,
+		height: 300
+	});
+	
+	$('#food-item-dialog-input').dialog({
+		autoOpen:false, 
+		resizable: false, 
+		draggable: false,
+		height: 300,
+		buttons: {
+			"Cancel": function() {
+				$(this).dialog('close')
+			},
+			"Add": function() {
+				var name = $('#food-item-name-input').val();
+				var price = $('#food-item-price-input').val();
+				
+				for(var i = 0; i < foodItemList.length; i++)
+				{
+					if(name == foodItemList[i].name)
+					{
+						foodItemList[i].price = price;
+						$('#food-item-list').append(name + ' ' + price + '<br/>')
+						$(this).dialog('close')
+					}
+							
+				}
+				
+				foodItemList.push(new foodItem(name, price));
+				$('#food-item-list').append(name + ' ' + price + '<br/>')
+				$(this).dialog('close');
+			} 
+		}
+	});
+
+	$('#food-item-add-button').click(function() {
+		
+		var foodListHtml = '<li>Add Food Item</li>';
+		
+		for(var i = 0; i < foodItemList.length; i++)
+		{
+			foodListHtml += '<li>' + foodItemList[i].name + '</li>'		
+		}
+		
+		$('#food-item-dialog-list ul').html(foodListHtml);
+		
+		$('#food-item-dialog-list li').click(function() {
+			
+			var selection = $(this).text();
+			
+			if(selection == "Add Food Item")
+			{
+				$('#food-item-name-input-span').show();
+				$('#food-item-name-input').val('');
+				$('#food-item-price-input').val('');
+			}
+			else
+			{
+				$('#food-item-name-input-span').hide();
+				$('#food-item-name-input').val(selection)
+			}
+			
+			$('#food-item-dialog-list').dialog('close');
+			$('#food-item-dialog-input').dialog('open');
+		});
+		
+		$('#food-item-dialog-list').dialog('open');
+		$('#food-item-label-button').click();
+	});
+	
 	$('#foodRadio').click();
 	$('#foodForm').show(); 
 }
@@ -112,8 +194,8 @@ $(document).ready(function() {
 			</div>
 			<div class="input-form">
 				<div class="user-form">
-					<button id="food-user-add" class="add-button">+</button>
-				 	<button id="food-user-label" class="label-button">Users</button>
+					<button id="food-user-add-button" class="add-button">+</button>
+				 	<button id="food-user-label-button" class="label-button">Users</button>
 					<div class="clearDiv"></div>
 					<div id="food-user-list" class="list" class="label-button">
 						<p>
@@ -124,12 +206,11 @@ $(document).ready(function() {
 				</div>
 				<div class="clearDiv"></div>
 				<div class="items-form">
-					<button id="food-item-add" class="add-button">+</button>
-					<button id="food-item-label" class="label-button">Food Items</button>
+					<button id="food-item-add-button" class="add-button">+</button>
+					<button id="food-item-label-button" class="label-button">Food Items</button>
 					<div class="clearDiv"></div>
 					<div id="food-item-list" class="list" class="label-button">
 						<p>
-							Steak $49.99<br/>
 						</p>
 					</div>
 				</div>
@@ -147,6 +228,18 @@ $(document).ready(function() {
 				</div>
 				<div class="clearDiv"></div>
 				<button id="food-invoice" class="invoice-button">Invoice</button>
+			</div>
+			<div id="food-item-dialog-list" title="Select Food Item">
+				<ul>
+				</ul>
+			</div>
+			<div id="food-item-dialog-input" title="Set Food Info">
+				<span id='food-item-name-input-span'>
+					<label for="food-item-name-input">Name</label>
+					<input type="text" name="food-item-name-input" id="food-item-name-input" />
+				</span>
+				<label for="food-item-price-input">Price</label>
+				<input type="text" name="food-item-price-input" id="food-item-price-input" />
 			</div>
 		</div>
 		<div class="clearDiv"></div>
