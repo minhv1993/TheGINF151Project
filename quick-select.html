@@ -48,7 +48,7 @@ function foodUserDialogListener()
 				var email = $('#food-user-email-input').val();
 				var phone = $('#food-user-email-input').val();
 				
-				for(var i = 0; i < f.length; i++)
+				for(var i = 0; i < foodUserList.length; i++)
 				{
 					if(name == foodUserList[i].name)
 					{
@@ -59,6 +59,7 @@ function foodUserDialogListener()
 				}
 				
 				foodUserList.push(new person(name, email, phone));
+				contactsList.push(new person(name, email, phone));
 				$('#food-user-list').append(name + '<br/>')
 				$(this).dialog('close');
 			} 
@@ -67,7 +68,7 @@ function foodUserDialogListener()
 
 	$('#food-user-add-button').click(function() {
 		
-		var foodListHtml = '<li>New User</li>';
+		var foodListHtml = '<li>New User</li>'; 
 		
 		for(var i = 0; i < contactsList.length; i++)
 		{
@@ -85,10 +86,28 @@ function foodUserDialogListener()
 				$('#food-user-name-input').val('');
 				$('#food-user-email-input').val('');
 				$('#food-user-phone-input').val('');
+			
+				$('#food-user-dialog-list').dialog('close');
+				$('#food-user-dialog-input').dialog('open');
 			}
 			else
 			{
-				foodUserList.push(selection + "<br />");
+				for(var i = 0; i < contactsList.length; i++)
+				{
+					var name = contactsList[i].name; 
+					var email = contactsList[i].email; 
+					var phone = contactsList[i].pone; 
+					
+					if(name == selection)
+					{
+						foodUserList.push(new person(name, email, phone));
+					}
+				}
+			}
+			
+			for(var i = 0; i < foodUserList.length; i++)
+			{
+				$('#food-user-list').append(foodUserList[i].name + '<br/>');	
 			}
 			
 			$('#food-user-dialog-list').dialog('close');
@@ -142,7 +161,7 @@ function foodItemDialogListener()
 
 	$('#food-item-add-button').click(function() {
 		
-		var foodListHtml = '<li>Add Food Item</li>';
+		var foodListHtml = '<li>New Food Item</li>';
 		
 		for(var i = 0; i < foodItemList.length; i++)
 		{
@@ -155,7 +174,7 @@ function foodItemDialogListener()
 			
 			var selection = $(this).text();
 			
-			if(selection == "Add Food Item")
+			if(selection == "New Food Item")
 			{
 				$('#food-item-name-input-span').show();
 				$('#food-item-name-input').val('');
@@ -281,7 +300,7 @@ $(document).ready(function() {
 					<button id="food-user-add-button" class="add-button">+</button>
 				 	<button id="food-user-label-button" class="label-button">Users</button>
 					<div class="clearDiv"></div>
-					<div id="food-user-list" class="list" class="label-button">
+					<div id="food-user-list" class="list">
 					</div>
 				</div>
 				<div class="clearDiv"></div>
@@ -312,9 +331,9 @@ $(document).ready(function() {
 				</ul>
 			</div>
 			<div id="food-user-dialog-input" title="Set User Info">
-					<label for="food-user-name-input">Name</label>
-					<input type="text" name="food-user-name-input" id="food-user-name-input" />
-				<label for="food-user-email-input">Price</label>
+				<label for="food-user-name-input">Name</label>
+				<input type="text" name="food-user-name-input" id="food-user-name-input" />
+				<label for="food-user-email-input">Email</label>
 				<input type="text" name="food-user-email-input" id="food-user-email-input" />
 				<label for="food-user-phone-input">Phone</label>
 				<input type="text" name="food-user-phone-input" id="food-user-phone-input" />
@@ -342,7 +361,7 @@ $(document).ready(function() {
 					<button id="rent-user-add" class="add-button">+</button>
 				 	<button id="rent-user-label" class="label-button">Users</button>
 					<div class="clearDiv"></div>
-					<div id="rent-user-list" class="list" class="label-button">
+					<div id="rent-user-list" class="list">
 						<p>
 							Kelvin Nguyen<br/>
 							Albert Luk<br />
@@ -356,7 +375,7 @@ $(document).ready(function() {
 					<button id="rent-item-add" class="add-button">+</button>
 					<button id="rent-item-label" class="label-button">Bills</button>
 					<div class="clearDiv"></div>
-					<div id="rent-item-list" class="list" class="label-button">
+					<div id="rent-item-list" class="list">
 						<p>
 							Electricity $49.99<br/>							
 							Internet $49.99<br/>
@@ -385,7 +404,7 @@ $(document).ready(function() {
 					<button id="trip-user-add" class="add-button">+</button>
 				 	<button id="trip-user-label" class="label-button">Users</button>
 					<div class="clearDiv"></div>
-					<div id="trip-user-list" class="list" class="label-button">
+					<div id="trip-user-list" class="list">
 						<p>
 							Kelvin Nguyen<br/>
 							Albert Luk<br />
@@ -399,7 +418,7 @@ $(document).ready(function() {
 					<button id="trip-item-add" class="add-button">+</button>
 					<button id="trip-item-label" class="label-button">Travel Items</button>
 					<div class="clearDiv"></div>
-					<div id="trip-item-list" class="list" class="label-button">
+					<div id="trip-item-list" class="list">
 						<p>
 							Gas $149.99<br/>							
 							Hotel $149.99<br/>
