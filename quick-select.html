@@ -4,14 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.1.custom.js"></script>
+<script type="text/javascript" src="js/person.js"></script>
+<script type="text/javascript" src="js/XMLContactParse.js"></script>
 <link rel="stylesheet" href="css/billsplit-theme/jquery-ui-1.10.1.custom.css">
 <link rel="stylesheet" href="css/style.css">
 <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,400,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <script>
+var foodUserList = new Array();
 var foodItemList = new Array();
-
 
 $(function() {
 	
@@ -23,19 +25,83 @@ function foodItem(name, price)
 	this.price = price;
 }
 
-function foodFormListener() {
-	
-	$('#food-user-label-button').click(function() {
-		$('#food-item-list').hide('blind', 500);
-		$('#food-user-list').show('blind', 500);		
+function foodUserDialogListener() 
+{
+	$('#food-user-dialog-list').dialog({
+		autoOpen: false,
+		resizable: false,
+		draggable: false,
+		height: 300
 	});
 	
-	$('#food-item-label-button').click(function() {
-		$('#food-user-list').hide('blind', 500);		
-		$('#food-item-list').show('blind', 500);
+	$('#food-user-dialog-input').dialog({
+		autoOpen:false, 
+		resizable: false, 
+		draggable: false,
+		height: 300,
+		buttons: {
+			"Cancel": function() {
+				$(this).dialog('close')
+			},
+			"Add": function() {
+				var name = $('#food-user-name-input').val();
+				var email = $('#food-user-email-input').val();
+				var phone = $('#food-user-email-input').val();
+				
+				for(var i = 0; i < f.length; i++)
+				{
+					if(name == foodUserList[i].name)
+					{
+						$(this).dialog('close')
+						alert('User with that name already exists!');
+					}
+							
+				}
+				
+				foodUserList.push(new person(name, email, phone));
+				$('#food-user-list').append(name + '<br/>')
+				$(this).dialog('close');
+			} 
+		}
 	});
 
-	
+	$('#food-user-add-button').click(function() {
+		
+		var foodListHtml = '<li>New User</li>';
+		
+		for(var i = 0; i < contactsList.length; i++)
+		{
+			foodListHtml += '<li>' + contactsList[i].name + '</li>'		
+		}
+		
+		$('#food-user-dialog-list ul').html(foodListHtml);
+		
+		$('#food-user-dialog-list li').click(function() {
+			
+			var selection = $(this).text();
+			
+			if(selection == "New User")
+			{
+				$('#food-user-name-input').val('');
+				$('#food-user-email-input').val('');
+				$('#food-user-phone-input').val('');
+			}
+			else
+			{
+				foodUserList.push(selection + "<br />");
+			}
+			
+			$('#food-user-dialog-list').dialog('close');
+		});
+		
+		$('#food-user-dialog-list').dialog('open');
+		$('#food-user-label-button').click();
+	});
+
+}
+
+function foodItemDialogListener() 
+{
 	$('#food-item-dialog-list').dialog({
 		autoOpen: false,
 		resizable: false,
@@ -108,6 +174,22 @@ function foodFormListener() {
 		$('#food-item-dialog-list').dialog('open');
 		$('#food-item-label-button').click();
 	});
+}
+
+function foodFormListener() {
+	
+	$('#food-user-label-button').click(function() {
+		$('#food-item-list').hide('blind', 500);
+		$('#food-user-list').show('blind', 500);		
+	});
+	
+	$('#food-item-label-button').click(function() {
+		$('#food-user-list').hide('blind', 500);		
+		$('#food-item-list').show('blind', 500);
+	});
+
+	foodUserDialogListener();
+	foodItemDialogListener();
 	
 	$('#foodRadio').click();
 	$('#foodForm').show(); 
@@ -171,10 +253,12 @@ function buttonListeners()
 }
 
 $(document).ready(function() {
+	xmlParse();
 	buttonListeners();
 	foodFormListener();
 	rentFormListener();
 	tripFormListener();
+	
 });
 </script>
 
@@ -198,10 +282,6 @@ $(document).ready(function() {
 				 	<button id="food-user-label-button" class="label-button">Users</button>
 					<div class="clearDiv"></div>
 					<div id="food-user-list" class="list" class="label-button">
-						<p>
-							Kelvin Nguyen<br/>
-							Albert Luk
-						</p>
 					</div>
 				</div>
 				<div class="clearDiv"></div>
@@ -209,9 +289,7 @@ $(document).ready(function() {
 					<button id="food-item-add-button" class="add-button">+</button>
 					<button id="food-item-label-button" class="label-button">Food Items</button>
 					<div class="clearDiv"></div>
-					<div id="food-item-list" class="list" class="label-button">
-						<p>
-						</p>
+					<div id="food-item-list" class="list">
 					</div>
 				</div>
 				<div class="clearDiv"></div>
@@ -228,6 +306,18 @@ $(document).ready(function() {
 				</div>
 				<div class="clearDiv"></div>
 				<button id="food-invoice" class="invoice-button">Invoice</button>
+			</div>
+			<div id="food-user-dialog-list" title="Select User">
+				<ul>
+				</ul>
+			</div>
+			<div id="food-user-dialog-input" title="Set User Info">
+					<label for="food-user-name-input">Name</label>
+					<input type="text" name="food-user-name-input" id="food-user-name-input" />
+				<label for="food-user-email-input">Price</label>
+				<input type="text" name="food-user-email-input" id="food-user-email-input" />
+				<label for="food-user-phone-input">Phone</label>
+				<input type="text" name="food-user-phone-input" id="food-user-phone-input" />
 			</div>
 			<div id="food-item-dialog-list" title="Select Food Item">
 				<ul>

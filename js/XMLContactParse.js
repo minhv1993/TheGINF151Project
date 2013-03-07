@@ -1,23 +1,22 @@
-var contactsList;
+var contactsList = new Array();
 
 function xmlParse()
 {
+	
 	$.ajax({
 		type: "GET",
-		url:"contacts.xml",
+		url:"xml/contacts.xml",
 		dataType: "xml",
 		success: function(results) {
 			contactsList = parseContact(results);
-		},
-		complete: function(){
-			alert(contactsList[0].name);
+		}, 
+		complete: function() {
 		}
 	});
 }
 
 function parseContact(filename)
 {
-
 	var contactList = new Array();
 
 	$(filename).find("contacts").each(function()
@@ -32,7 +31,6 @@ function parseContact(filename)
 			contactList.push(tempPerson);
 		});
 	});
-
 
 	return contactList;
 }

@@ -130,6 +130,7 @@ ul
 li {
     display: block;
     text-align:center;
+    padding:5px;
 }
 li:hover {
     background: #D0D3AB;
