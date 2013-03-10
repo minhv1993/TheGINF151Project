@@ -1,13 +1,4 @@
-
 var amountToPay = {};
-
-function trip(listName, travelList, totalPot)
-{
-
-	this.personList = listName;
-	this.travelList = travelList;
-	this.totalPot = totalPot;
-}
 
 function calculateTripInvoice(allPersonList, travelItemList)
 {
@@ -44,8 +35,6 @@ function calculateTripInvoice(allPersonList, travelItemList)
 	//Calculates how much is left to pay based on average
 	for(var k = 0; k < allPersonList.length; k++)
 	{
-		
-		
 		if(isNaN(currTotalMap[allPersonList[k].name]))
 		{
 			amountToPay[allPersonList[k].name] = averagePerPerson;
@@ -68,15 +57,4 @@ function getFinalCalculationMap()
 {
 	return amountToPay;
 }
-
-
-//function mapTest(){
-//	var map =  {};
-//	map["hello"] = "sup";
-//	map["ooo"] = "asdf";
-//	delete map["hello"];
-//	alert(map["ooo"]);
-//}
-
-
 
