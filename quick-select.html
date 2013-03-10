@@ -68,8 +68,22 @@ function foodUserDialogListener()
 				if(!isNameFound)
 				{
 					foodUserList.push(new person(name, email, phone));
-					$('#food-user-list').append('<button onclick="removeUser(' + foodUserList[i].name + ')">-</button>' 
-							+ foodUserList[i].name + '<br/>');
+					
+					var foodUserListHtml = "";
+					
+					for(var i = 0; i < foodUserList.length; i++)
+					{
+						foodUserListHtml += '<button class="icon-button" onclick="removeUser(\'' + foodUserList[i].name + 
+								'\')">-</button>' + foodUserList[i].name + '<br/>'; 	
+					}
+					
+					$('#food-user-list').html(foodUserListHtml);
+					$('#food-user-list button').button({
+						icons: {
+						    primary: "ui-icon-minus"
+						  },
+						  text: false
+					});
 				}
 				
 				$(this).dialog('close');
@@ -113,7 +127,23 @@ function foodUserDialogListener()
 					{
 						foodUserList.push(new person(name, email, phone));
 						foodContactList.splice(i, 1);
-						$('#food-user-list').append(foodUserList[i].name + '<br/>');
+						
+						var foodUserListHtml = "";
+						
+						for(var i = 0; i < foodUserList.length; i++)
+						{
+							foodUserListHtml += '<button class="icon-button" onclick="removeUser(\'' + foodUserList[i].name + 
+									'\')">-</button>' + foodUserList[i].name + '<br/>'; 	
+						}
+						
+						$('#food-user-list').html(foodUserListHtml);
+						$('#food-user-list button').button({
+							icons: {
+							    primary: "ui-icon-minus"
+							  },
+							  text: false
+						});
+						
 						break;
 					}
 				}
@@ -275,7 +305,12 @@ function buttonListeners()
 		}	
 	});
 	
-	$('.add-button').button();
+	$('.add-button').button({
+		icons: {
+		    primary: "ui-icon-plus"
+		  },
+		  text: false
+	});
 	$('.label-button').button();
 	$('.invoice-button').button();
 }

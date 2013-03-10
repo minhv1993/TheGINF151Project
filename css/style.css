@@ -93,9 +93,8 @@ a.setting-button {
 }
 
 .label-button {
-	float:left;
-	width:80%;
-	margin-left:2%;
+	float:right;
+	width:85%;
 }
 
 .list {
@@ -132,10 +131,15 @@ li {
     text-align:left;
     padding:5px;
 }
+
 li:hover {
     background: #D0D3AB;
 }
 
 .newSelector {
 	border-bottom: 2px solid #008798;
+}
+
+.icon-button {
+	font-size:11px;
 }
