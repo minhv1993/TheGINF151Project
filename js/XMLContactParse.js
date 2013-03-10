@@ -1,14 +1,19 @@
-var contactsList = new Array();
+var foodContactList = new Array();
+var rentContactList = new Array();
+var tripContactList = new Array();
 
 function xmlParse()
 {
+	var contactsList = new Array();
 	
 	$.ajax({
 		type: "GET",
 		url:"xml/contacts.xml",
 		dataType: "xml",
 		success: function(results) {
-			contactsList = parseContact(results);
+			foodContactList = parseContact(results);
+			rentContactList = foodContactList; 
+			tripContactList = foodContactList;
 		}, 
 		complete: function() {
 		}

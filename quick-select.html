@@ -12,12 +12,17 @@
 </head>
 <body>
 <script>
-var foodUserList = new Array();
+var foodUserList = new Array();		
 var foodItemList = new Array();
 
 $(function() {
 	
 });
+
+function removeUser(name)
+{
+	alert(name);
+}
 
 function foodItem(name, price)
 {
@@ -48,19 +53,25 @@ function foodUserDialogListener()
 				var email = $('#food-user-email-input').val();
 				var phone = $('#food-user-email-input').val();
 				
+				var isNameFound = false; 
+				
 				for(var i = 0; i < foodUserList.length; i++)
 				{
 					if(name == foodUserList[i].name)
 					{
-						$(this).dialog('close')
+						isNameFound = true;
 						alert('User with that name already exists!');
+						break;
 					}
-							
 				}
 				
-				foodUserList.push(new person(name, email, phone));
-				contactsList.push(new person(name, email, phone));
-				$('#food-user-list').append(name + '<br/>')
+				if(!isNameFound)
+				{
+					foodUserList.push(new person(name, email, phone));
+					$('#food-user-list').append('<button onclick="removeUser(' + foodUserList[i].name + ')">-</button>' 
+							+ foodUserList[i].name + '<br/>');
+				}
+				
 				$(this).dialog('close');
 			} 
 		}
@@ -68,14 +79,14 @@ function foodUserDialogListener()
 
 	$('#food-user-add-button').click(function() {
 		
-		var foodListHtml = '<li>New User</li>'; 
+		var contactHtml = '<li class="newSelector">New User</li>'; 
 		
-		for(var i = 0; i < contactsList.length; i++)
+		for(var i = 0; i < foodContactList.length; i++)
 		{
-			foodListHtml += '<li>' + contactsList[i].name + '</li>'		
+			contactHtml += '<li>' + foodContactList[i].name + '</li>'		
 		}
 		
-		$('#food-user-dialog-list ul').html(foodListHtml);
+		$('#food-user-dialog-list ul').html(contactHtml);
 		
 		$('#food-user-dialog-list li').click(function() {
 			
@@ -92,25 +103,23 @@ function foodUserDialogListener()
 			}
 			else
 			{
-				for(var i = 0; i < contactsList.length; i++)
+				for(var i = 0; i < foodContactList.length; i++)
 				{
-					var name = contactsList[i].name; 
-					var email = contactsList[i].email; 
-					var phone = contactsList[i].pone; 
+					var name = foodContactList[i].name; 
+					var email = foodContactList[i].email; 
+					var phone = foodContactList[i].pone; 
 					
 					if(name == selection)
 					{
 						foodUserList.push(new person(name, email, phone));
+						foodContactList.splice(i, 1);
+						$('#food-user-list').append(foodUserList[i].name + '<br/>');
+						break;
 					}
 				}
+				
+				$('#food-user-dialog-list').dialog('close');
 			}
-			
-			for(var i = 0; i < foodUserList.length; i++)
-			{
-				$('#food-user-list').append(foodUserList[i].name + '<br/>');	
-			}
-			
-			$('#food-user-dialog-list').dialog('close');
 		});
 		
 		$('#food-user-dialog-list').dialog('open');
@@ -161,7 +170,7 @@ function foodItemDialogListener()
 
 	$('#food-item-add-button').click(function() {
 		
-		var foodListHtml = '<li>New Food Item</li>';
+		var foodListHtml = '<li class="newSelector">New Food Item</li>';
 		
 		for(var i = 0; i < foodItemList.length; i++)
 		{
@@ -272,7 +281,10 @@ function buttonListeners()
 }
 
 $(document).ready(function() {
-	xmlParse();
+	foodContactList = xmlParse();
+	rentContactList = foodContactList; 
+	tripContactList = foodContactList; 
+	
 	buttonListeners();
 	foodFormListener();
 	rentFormListener();
@@ -331,11 +343,11 @@ $(document).ready(function() {
 				</ul>
 			</div>
 			<div id="food-user-dialog-input" title="Set User Info">
-				<label for="food-user-name-input">Name</label>
-				<input type="text" name="food-user-name-input" id="food-user-name-input" />
-				<label for="food-user-email-input">Email</label>
-				<input type="text" name="food-user-email-input" id="food-user-email-input" />
-				<label for="food-user-phone-input">Phone</label>
+				<label for="food-user-name-input">Name</label><br/>
+				<input type="text" name="food-user-name-input" id="food-user-name-input" /><br/>
+				<label for="food-user-email-input">Email</label><br/>
+				<input type="text" name="food-user-email-input" id="food-user-email-input" /><br/>
+				<label for="food-user-phone-input">Phone</label><br/>
 				<input type="text" name="food-user-phone-input" id="food-user-phone-input" />
 			</div>
 			<div id="food-item-dialog-list" title="Select Food Item">
@@ -344,10 +356,10 @@ $(document).ready(function() {
 			</div>
 			<div id="food-item-dialog-input" title="Set Food Info">
 				<span id='food-item-name-input-span'>
-					<label for="food-item-name-input">Name</label>
-					<input type="text" name="food-item-name-input" id="food-item-name-input" />
+					<label for="food-item-name-input">Name</label>><br/>
+					<input type="text" name="food-item-name-input" id="food-item-name-input" />><br/>
 				</span>
-				<label for="food-item-price-input">Price</label>
+				<label for="food-item-price-input">Price</label>><br/>
 				<input type="text" name="food-item-price-input" id="food-item-price-input" />
 			</div>
 		</div>

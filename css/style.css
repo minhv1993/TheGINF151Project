@@ -129,9 +129,13 @@ ul
 
 li {
     display: block;
-    text-align:center;
+    text-align:left;
     padding:5px;
 }
 li:hover {
     background: #D0D3AB;
+}
+
+.newSelector {
+	border-bottom: 2px solid #008798;
 }
