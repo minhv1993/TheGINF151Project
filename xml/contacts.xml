@@ -1,7 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <contacts>
     <contact>
+    	<name>Albert Luk</name>
+    	<phone>0987654321</phone>
+    	<email>aluk@uci.edu</email>
+    </contact>
+    <contact>
     	<name>Kelvin Nguyen</name>
-    	<phone>408-518-2629</phone>
+    	<phone>123456789</phone>
     	<email>kelvinn@uci.edu</email>
     </contact>
     <contact>
@@ -11,12 +17,17 @@
     </contact>
     <contact>
     	<name>Sohrob Raja</name>
-    	<phone></phone>
+    	<phone/>
     	<email>sohrobr@uci.edu</email>
     </contact>
-    <contact>
-    	<name>Albert Luk</name>
-    	<phone></phone>
-    	<email>aluk@uci.edu</email>
-    </contact>
+	<contact>
+		<name>Bob Dilan</name>
+		<phone>1234567890</phone>
+		<email>test@test.com</email>
+	</contact>
+	<contact>
+		<name>John Green</name>
+		<phone>1234567890</phone>
+		<email>test@test.com</email>
+	</contact>
 </contacts>
