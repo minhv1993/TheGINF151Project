@@ -12,7 +12,7 @@
 		<h1>BillSplit</h1>
 		<h5>An easier way to to split the bill</h5>
 	</div>	
-	<a href="quick-select.php" rel="external" data-role="button" data-theme="b" data-corners="false">Quick Event</a>
+	<a href="quick-select.html" rel="external" data-role="button" data-theme="b" data-corners="false">Quick Event</a>
 	<a href="#" data-role="button" data-theme="b" data-corners="false">Event History</a>
 	<a href="#" data-role="button" data-theme="b" data-corners="false">Invoice History</a>
 	<a href="contacts.php" rel="external" data-role="button" data-theme="b" data-corners="false">Contacts</a>
