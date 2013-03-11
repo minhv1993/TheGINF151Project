@@ -2,12 +2,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.10.1.custom.js"></script>
+<script type="text/javascript" src="js/jquery/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="js/jquery/jquery-ui-1.10.1.custom.js"></script>
 <script type="text/javascript" src="js/person.js"></script>
 <script type="text/javascript" src="js/XMLContactParse.js"></script>
 <script type="text/javascript" src="js/food.js"></script>
 <script type="text/javascript" src="js/rent.js"></script>
+<script type="text/javascript" src="js/trip.js"></script>
+<script type="text/javascript" src="js/calculations.js"></script>
 <link rel="stylesheet" href="css/billsplit-theme/jquery-ui-1.10.1.custom.css">
 <link rel="stylesheet" href="css/style.css">
 <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,400,300' rel='stylesheet' type='text/css'>
@@ -18,20 +20,6 @@
 $(function() {
 	
 });
-
-
-function tripFormListener() {
-	
-	$('#trip-user-label').click(function() {
-		$('#trip-item-list').hide('blind', 500);
-		$('#trip-user-list').show('blind', 500);		
-	});
-	
-	$('#trip-item-label').click(function() {
-		$('#trip-user-list').hide('blind', 500);		
-		$('#trip-item-list').show('blind', 500);
-	});
-}
 
 
 function buttonListeners()
@@ -112,14 +100,19 @@ $(document).ready(function() {
 				</div>
 				<div class="clearDiv"></div>
 				<div class="extra-form">
-					<div>
-						<label for="tipInput" class="label">Tip % </label>
-						<input id="tipInput" class="tipTaxInput" type="text" />
+					<div style="float:right;">
+						<label for="tipInput">Tip % </label>
+						<input id="tipInput" type="text" />
 					</div>
 					<div class="clearDiv"></div>
-					<div class="items-form">
-						<label for="taxInput" class="label">Tax % </label>
-						<input id="taxInput" class="tipTaxInput" type="text" />
+					<div style="margin-top:10px;float:right;">
+						<label for="taxInput" >Tax % </label>
+						<input id="taxInput" type="text" />
+					</div>
+					<div class="clearDiv"></div>
+					<div style="margin-top:10%;">
+						<label for="foodSubtotalInput">Subtotal </label>
+						<input id="foodSubtotalInput" type="text" />
 					</div>
 				</div>
 				<div class="clearDiv"></div>
@@ -176,8 +169,8 @@ $(document).ready(function() {
 				<div class="clearDiv"></div>
 				<div class="extra-form">
 					<div>
-						<label for="rentInput" class="potLabel">Rent </label>
-						<input id="rentInput" class="potInput" type="text" />
+						<label for="rentInput">Rent </label>
+						<input id="rentInput" type="text" />
 					</div>
 				</div>
 				<div class="clearDiv"></div>
@@ -219,12 +212,6 @@ $(document).ready(function() {
 				 	<button id="trip-user-label-button" class="label-button">Users</button>
 					<div class="clearDiv"></div>
 					<div id="trip-user-list" class="list">
-						<p>
-							Kelvin Nguyen<br/>
-							Albert Luk<br />
-							Sohrob Raja<br />
-							Minh Vo
-						</p>
 					</div>
 				</div>
 				<div class="clearDiv"></div>
@@ -233,24 +220,42 @@ $(document).ready(function() {
 					<button id="trip-item-label-button" class="label-button">Travel Items</button>
 					<div class="clearDiv"></div>
 					<div id="trip-item-list" class="list">
-						<p>
-							Gas $149.99<br/>							
-							Hotel $149.99<br/>
-							Food $49.99
-						</p>
 					</div>
 				</div>
 				<div class="clearDiv"></div>
 				<div class="extra-form">
 					<div>
-						<label for="tripPotInput" class="potLabel">Total Pot </label>
-						<input id="tripPotInput" class="potInput" type="text" />
+						<label for="tripPotInput" >Total Pot </label>
+						<input id="tripPotInput" type="text" />
 					</div>
 				</div>
 				<div class="clearDiv"></div>
 				<button id="trip-invoice" class="invoice-button">Invoice</button>
 			</div>
-			
+			<div id="trip-user-dialog-list" title="Select User">
+				<ul>
+				</ul>
+			</div>
+			<div id="trip-user-dialog-input" title="Set Trip Info">
+				<label for="trip-user-name-input">Name</label><br/>
+				<input type="text" name="trip-user-name-input" id="trip-user-name-input" class="dialog-input"/><br/>
+				<label for="trip-user-email-input">Email</label><br/>
+				<input type="text" name="trip-user-email-input" id="trip-user-email-input" class="dialog-input"/><br/>
+				<label for="trip-user-phone-input">Phone</label><br/>
+				<input type="text" name="trip-user-phone-input" id="trip-user-phone-input" class="dialog-input"/>
+			</div>
+			<div id="trip-item-dialog-list" title="Select Travel Item">
+				<ul>
+				</ul>
+			</div>
+			<div id="trip-item-dialog-input" title="Set Travel Item Info">
+				<span id='trip-item-name-input-span'>
+					<label for="trip-item-name-input">Name</label><br/>
+					<input type="text" name="trip-item-name-input" id="trip-item-name-input" class="dialog-input"/><br/>
+				</span>
+				<label for="trip-item-price-input">Price</label><br/>
+				<input type="text" name="trip-item-price-input" id="trip-item-price-input" class="dialog-input"/>
+			</div>
 		</div>
 		<div class="clearDiv"></div>
 		

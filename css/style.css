@@ -83,8 +83,12 @@ a.setting-button {
 }
 
 .extra-form {
-	padding-top:15%;
+	padding-top:10%;
 	font-size:20px;
+}
+
+.extra-form label {
+	padding: 5px;
 }
 
 .add-button, .label  {
@@ -102,17 +106,6 @@ a.setting-button {
 	width:80%;
 	margin-left: 20%;
 	display:none;
-}
-
-.tipTaxInput {
-	float:left;
-	width:30%;
-	margin-left: 3%;	
-}
-
-.potInput {
-	margin-left:3%;
-	width:50%;
 }
 
 .invoice-button {

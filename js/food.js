@@ -118,8 +118,9 @@ function populateFoodUserList()
 function populateFoodItemList()
 {
 	var foodItemListHtml = "";
-	
+	var potAmount = 0; 
 	foodItemList.sort(compareNames);
+	
 	for(var i = 0; i < foodItemList.length; i++)
 	{
 		var currName = foodItemList[i].name; 
@@ -127,6 +128,7 @@ function populateFoodItemList()
 		var currQuantity = foodItemList[i].quantity; 	
 		
 		var subTotal = Math.round(currPrice * currQuantity *100) / 100; 
+		potAmount += parseFloat(subTotal); 
 		
 		foodItemListHtml += '<div class="items-form">' + 
 				'<div style="float:left;"><button class="icon-button" onclick="editFoodItem(\'' 
@@ -138,6 +140,9 @@ function populateFoodItemList()
 				'<div class="clearDiv"></div>'; 
 		
 	}
+	
+	potAmount = Math.round(potAmount * 100) / 100;
+	$('#foodSubtotalInput').val('$' + potAmount);
 	
 	$('#food-item-list').html(foodItemListHtml);
 	$('#food-item-list .icon-button').button({
@@ -406,4 +411,5 @@ function foodFormListener() {
 	
 	$('#foodRadio').click();
 	$('#foodForm').show(); 
+	$('#foodSubtotalInput').attr('disabled', true);
 }
