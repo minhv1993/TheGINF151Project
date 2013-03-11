@@ -480,7 +480,7 @@ function travelInvoiceListener()
 		for(var i = 0; i < travelUserList.length; i++)
 		{
 			var currName = travelUserList[i].name;
-			var currPay = tripCalculationsMap[currName];
+			var currPay = tripCalculationsMap[currName];			
 			
 			if(currPay >= 0)
 				invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 

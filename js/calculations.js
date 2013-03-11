@@ -1,36 +1,32 @@
 
-function calculateTravelInvoice(allPersonList, travelItemList)
+function calculateTravelInvoice(allPersonList, itemsList)
 {
 	var amountToPay = {};
 
-	this.allPersonList = allPersonList;
-	this.travelItemList = travelItemList;
-	
 	var currTotalMap = {};
 	var totalPot = 0;
 
-
 	//Populates and increments overall contributed to the pot
-	for (var i=0; i < travelItemList.length; i++)
+	for (var i=0; i < itemsList.length; i++)
 	{ 	
-		for(var j = 0; j < travelItemList[i].personList.length; j++)
+		for(var j = 0; j < itemsList[i].personList.length; j++)
 		{
 			
-			if(isNaN(currTotalMap[travelItemList[i].personList[j].name]))
-			{s
-				currTotalMap[travelItemList[i].personList[j].name] = travelItemList[i].price/travelItemList[i].personList.length;	
+			if(isNaN(currTotalMap[itemsList[i].personList[j].name]))
+			{
+				currTotalMap[itemsList[i].personList[j].name] = itemsList[i].price/itemsList[i].personList.length;	
 			}
 			else 
 			{
-				currTotalMap[travelItemList[i].personList[j].name] += travelItemList[i].price/travelItemList[i].personList.length;					
+				currTotalMap[itemsList[i].personList[j].name] += itemsList[i].price/itemsList[i].personList.length;					
 			}
 
 		}
-		totalPot += travelItemList[i].price;
-		
+		totalPot += parseFloat(itemsList[i].price);
 	}
 
 	var averagePerPerson = totalPot/allPersonList.length;
+	averagePerPerson = Math.round(averagePerPerson * 100) / 100;
 
 	//Calculates how much is left to pay based on average
 	for(var k = 0; k < allPersonList.length; k++)
