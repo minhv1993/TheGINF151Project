@@ -1,6 +1,6 @@
 var foodContactList = new Array();
 var rentContactList = new Array();
-var tripContactList = new Array();
+var travelContactList = new Array();
 
 function xmlParse()
 {
@@ -13,7 +13,7 @@ function xmlParse()
 		success: function(results) {
 			foodContactList = parseContact(results);
 			rentContactList = foodContactList.slice(0); 
-			tripContactList = foodContactList.slice(0);
+			travelContactList = foodContactList.slice(0);
 		}, 
 		complete: function() {
 		}

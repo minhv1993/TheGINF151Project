@@ -1,15 +1,7 @@
-var amountToPay = {};
 
-function person(name, phone, email)
+function calculateTravelInvoice(allPersonList, travelItemList)
 {
-	this.name = name;
-	this.phone = phone;
-	this.email = email;
-
-}
-
-function calculateTripInvoice(allPersonList, travelItemList)
-{
+	var amountToPay = {};
 
 	this.allPersonList = allPersonList;
 	this.travelItemList = travelItemList;
@@ -26,15 +18,15 @@ function calculateTripInvoice(allPersonList, travelItemList)
 			
 			if(isNaN(currTotalMap[travelItemList[i].personList[j].name]))
 			{
-				currTotalMap[travelItemList[i].personList[j].name] = travelItemList[i].cost;	
+				currTotalMap[travelItemList[i].personList[j].name] = travelItemList[i].price;	
 			}
 			else 
 			{
-				currTotalMap[travelItemList[i].personList[j].name] += travelItemList[i].cost;					
+				currTotalMap[travelItemList[i].personList[j].name] += travelItemList[i].price;					
 			}
 
 		}
-		totalPot += travelItemList[i].cost;
+		totalPot += travelItemList[i].price;
 		
 	}
 
@@ -52,17 +44,6 @@ function calculateTripInvoice(allPersonList, travelItemList)
 			amountToPay[allPersonList[k].name] = averagePerPerson - currTotalMap[allPersonList[k].name];
 		}
 	}
-}
-
-function travelItem(itemName, cost, personList)
-{
-	this.itemName = itemName; 
-	this.cost = cost;
-	this.personList = personList;
-}
-
-function getFinalCalculationMap()
-{
+	
 	return amountToPay;
 }
-

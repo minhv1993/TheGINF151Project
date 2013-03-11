@@ -166,6 +166,7 @@ function foodUserDialogListener()
 		autoOpen: false,
 		resizable: false,
 		draggable: false,
+		modal: true,
 		height: 400
 	});
 	
@@ -173,6 +174,7 @@ function foodUserDialogListener()
 		autoOpen:false, 
 		resizable: false, 
 		draggable: false,
+		modal: true,
 		height: 400,
 		buttons: {
 			"Cancel": function() {
@@ -277,6 +279,7 @@ function foodItemDialogListener()
 		autoOpen: false,
 		resizable: false,
 		draggable: false,
+		modal: true,
 		height: 400
 	});
 	
@@ -284,6 +287,7 @@ function foodItemDialogListener()
 		autoOpen:false, 
 		resizable: false, 
 		draggable: false,
+		modal: true,
 		height: 400,
 		buttons: {
 			"Cancel": function() {

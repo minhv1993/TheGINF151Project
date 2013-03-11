@@ -8,7 +8,7 @@
 <script type="text/javascript" src="js/XMLContactParse.js"></script>
 <script type="text/javascript" src="js/food.js"></script>
 <script type="text/javascript" src="js/rent.js"></script>
-<script type="text/javascript" src="js/trip.js"></script>
+<script type="text/javascript" src="js/travel.js"></script>
 <script type="text/javascript" src="js/calculations.js"></script>
 <link rel="stylesheet" href="css/billsplit-theme/jquery-ui-1.10.1.custom.css">
 <link rel="stylesheet" href="css/style.css">
@@ -16,11 +16,17 @@
 </head>
 <body>
 <script>
+function person(name, phone, email)
+{
+	this.name = name;
+	this.phone = phone;
+	this.email = email;
+
+}
 
 $(function() {
 	
 });
-
 
 function buttonListeners()
 {
@@ -29,20 +35,20 @@ function buttonListeners()
 	$('#nav-bar-radio').change(function() {
 		if($('#foodRadio').is(':checked'))
 		{
-			$('#tripForm').hide();
+			$('#travelForm').hide();
 			$('#rentForm').hide();
 			$('#foodForm').show(); 
 		}
-		else if($('#tripRadio').is(':checked'))
+		else if($('#travelRadio').is(':checked'))
 		{
 			$('#foodForm').hide();
 			$('#rentForm').hide();
-			$('#tripForm').show(); 
+			$('#travelForm').show(); 
 		}
 		else if($('#rentRadio').is(':checked'))
 		{
 			$('#foodForm').hide();
-			$('#tripForm').hide();
+			$('#travelForm').hide();
 			$('#rentForm').show(); 
 		}	
 	});
@@ -63,7 +69,7 @@ $(document).ready(function() {
 	buttonListeners();
 	foodFormListener();
 	rentFormListener();
-	tripFormListener();
+	travelFormListener();
 	
 });
 </script>
@@ -74,10 +80,12 @@ $(document).ready(function() {
 		<div id="nav-bar-radio">
 			<input type="radio" id="foodRadio" name="optionsRadio" checked/><label for="foodRadio">Food</label>
 			<input type="radio" id="rentRadio" name="optionsRadio" /><label for="rentRadio">Rent</label>
-			<input type="radio" id="tripRadio" name="optionsRadio" /><label for="tripRadio">Trip</label>
+			<input type="radio" id="travelRadio" name="optionsRadio" /><label for="travelRadio">Travel</label>
 		</div>
 	</div>
 	<div id="form-wrapper">
+	
+	
 		<div id="foodForm" style="display:none;">
 			<div class="title-bar">
 				<p>Food</p>
@@ -116,7 +124,7 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="clearDiv"></div>
-				<button id="food-invoice" class="invoice-button">Invoice</button>
+				<button id="food-invoice-button" class="invoice-button">Invoice</button>
 			</div>
 			<div id="food-user-dialog-list" title="Select User">
 				<ul>
@@ -146,6 +154,8 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="clearDiv"></div>
+		
+		
 		<div id="rentForm" style="display:none;">
 			<div class="title-bar">
 				<p>Rent</p>
@@ -174,7 +184,7 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="clearDiv"></div>
-				<button id="rent-invoice" class="invoice-button">Invoice</button>
+				<button id="rent-invoice-button" class="invoice-button">Invoice</button>
 			</div>
 			<div id="rent-user-dialog-list" title="Select User">
 				<ul>
@@ -202,63 +212,70 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="clearDiv"></div>
-		<div id="tripForm" style="display:none;">
-			<div class="title-bar">
-				<p>Trip</p>
-			</div>
-			<div class="input-form">
-				<div class="user-form">
-					<button id="trip-user-add-button" class="add-button">+</button>
-				 	<button id="trip-user-label-button" class="label-button">Users</button>
+		
+
+		<div id="travelForm" style="display:none;">
+			<div id="travel-page">
+				<div class="title-bar">
+					<p>Travel</p>
+				</div>
+				<div class="input-form">
+					<div class="user-form">
+						<button id="travel-user-add-button" class="add-button">+</button>
+					 	<button id="travel-user-label-button" class="label-button">Users</button>
+						<div class="clearDiv"></div>
+						<div id="travel-user-list" class="list">
+						</div>
+					</div>
 					<div class="clearDiv"></div>
-					<div id="trip-user-list" class="list">
+					<div class="items-form">
+						<button id="travel-item-add-button" class="add-button">+</button>
+						<button id="travel-item-label-button" class="label-button">Travel Items</button>
+						<div class="clearDiv"></div>
+						<div id="travel-item-list" class="list">
+						</div>
 					</div>
-				</div>
-				<div class="clearDiv"></div>
-				<div class="items-form">
-					<button id="trip-item-add-button" class="add-button">+</button>
-					<button id="trip-item-label-button" class="label-button">Travel Items</button>
 					<div class="clearDiv"></div>
-					<div id="trip-item-list" class="list">
+					<div class="extra-form">
+						<div>
+							<label for="travelPotInput" >Total Pot </label>
+							<input id="travelPotInput" type="text" />
+						</div>
 					</div>
+					<div class="clearDiv"></div>
+					<button id="travel-invoice-button" class="invoice-button">Invoice</button>
 				</div>
-				<div class="clearDiv"></div>
-				<div class="extra-form">
-					<div>
-						<label for="tripPotInput" >Total Pot </label>
-						<input id="tripPotInput" type="text" />
-					</div>
+				<div id="travel-user-dialog-list" title="Select User">
+					<ul>
+					</ul>
 				</div>
-				<div class="clearDiv"></div>
-				<button id="trip-invoice" class="invoice-button">Invoice</button>
+				<div id="travel-user-dialog-input" title="Set Travel Info">
+					<label for="travel-user-name-input">Name</label><br/>
+					<input type="text" name="travel-user-name-input" id="travel-user-name-input" class="dialog-input"/><br/>
+					<label for="travel-user-email-input">Email</label><br/>
+					<input type="text" name="travel-user-email-input" id="travel-user-email-input" class="dialog-input"/><br/>
+					<label for="travel-user-phone-input">Phone</label><br/>
+					<input type="text" name="travel-user-phone-input" id="travel-user-phone-input" class="dialog-input"/>
+				</div>
+				<div id="travel-item-dialog-list" title="Select Travel Item">
+					<ul>
+					</ul>
+				</div>
+				<div id="travel-item-dialog-input" title="Set Travel Item Info">
+					<span id='travel-item-name-input-span'>
+						<label for="travel-item-name-input">Name</label><br/>
+						<input type="text" name="travel-item-name-input" id="travel-item-name-input" class="dialog-input"/><br/>
+					</span>
+					<label for="travel-item-price-input">Price</label><br/>
+					<input type="text" name="travel-item-price-input" id="travel-item-price-input" class="dialog-input"/>
+				</div>
+				<div id="travel-user-dialog-link" title="">
+				</div>
 			</div>
-			<div id="trip-user-dialog-list" title="Select User">
-				<ul>
-				</ul>
-			</div>
-			<div id="trip-user-dialog-input" title="Set Trip Info">
-				<label for="trip-user-name-input">Name</label><br/>
-				<input type="text" name="trip-user-name-input" id="trip-user-name-input" class="dialog-input"/><br/>
-				<label for="trip-user-email-input">Email</label><br/>
-				<input type="text" name="trip-user-email-input" id="trip-user-email-input" class="dialog-input"/><br/>
-				<label for="trip-user-phone-input">Phone</label><br/>
-				<input type="text" name="trip-user-phone-input" id="trip-user-phone-input" class="dialog-input"/>
-			</div>
-			<div id="trip-item-dialog-list" title="Select Travel Item">
-				<ul>
-				</ul>
-			</div>
-			<div id="trip-item-dialog-input" title="Set Travel Item Info">
-				<span id='trip-item-name-input-span'>
-					<label for="trip-item-name-input">Name</label><br/>
-					<input type="text" name="trip-item-name-input" id="trip-item-name-input" class="dialog-input"/><br/>
-				</span>
-				<label for="trip-item-price-input">Price</label><br/>
-				<input type="text" name="trip-item-price-input" id="trip-item-price-input" class="dialog-input"/>
+			<div id="travel-invoice">
 			</div>
 		</div>
 		<div class="clearDiv"></div>
-		
 	</div>
 </div>
 </body>

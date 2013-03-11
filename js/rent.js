@@ -164,6 +164,7 @@ function rentUserDialogListener()
 		autoOpen: false,
 		resizable: false,
 		draggable: false,
+		modal: true,
 		height: 400
 	});
 	
@@ -171,6 +172,7 @@ function rentUserDialogListener()
 		autoOpen:false, 
 		resizable: false, 
 		draggable: false,
+		modal: true,
 		height: 400,
 		buttons: {
 			"Cancel": function() {
@@ -275,6 +277,7 @@ function billDialogListener()
 		autoOpen: false,
 		resizable: false,
 		draggable: false,
+		modal: true,
 		height: 400
 	});
 	
@@ -282,6 +285,7 @@ function billDialogListener()
 		autoOpen:false, 
 		resizable: false, 
 		draggable: false,
+		modal: true,
 		height: 400,
 		buttons: {
 			"Cancel": function() {
