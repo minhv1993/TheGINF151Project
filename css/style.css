@@ -1,6 +1,6 @@
-body, input {
+body{
 	font-family: 'Roboto Condensed', sans-serif;
-	font-size:16px;
+	font-size:18px;
 }
 
 #nav-bar {
@@ -140,6 +140,22 @@ li:hover {
 	border-bottom: 2px solid #008798;
 }
 
-.icon-button {
-	font-size:11px;
+.icon-button, .link-button {
+	font-size:16px;
+	background:#D0D3AB;
 }
+
+.dialog-input {
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size:12px;
+	padding:5px;
+	width:95%;
+	margin-bottom: 5px;
+	margin-top:5px; 
+}
+
+.extra-form input {
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size:14px;
+	padding:3px;
+} 
