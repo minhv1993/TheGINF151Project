@@ -12,8 +12,8 @@ function xmlParse()
 		dataType: "xml",
 		success: function(results) {
 			foodContactList = parseContact(results);
-			rentContactList = foodContactList; 
-			tripContactList = foodContactList;
+			rentContactList = foodContactList.slice(0); 
+			tripContactList = foodContactList.slice(0);
 		}, 
 		complete: function() {
 		}

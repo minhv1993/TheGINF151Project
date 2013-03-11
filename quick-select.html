@@ -7,6 +7,7 @@
 <script type="text/javascript" src="js/person.js"></script>
 <script type="text/javascript" src="js/XMLContactParse.js"></script>
 <script type="text/javascript" src="js/food.js"></script>
+<script type="text/javascript" src="js/rent.js"></script>
 <link rel="stylesheet" href="css/billsplit-theme/jquery-ui-1.10.1.custom.css">
 <link rel="stylesheet" href="css/style.css">
 <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,400,300' rel='stylesheet' type='text/css'>
@@ -18,19 +19,6 @@ $(function() {
 	
 });
 
-
-function rentFormListener() {
-	
-	$('#rent-user-label').click(function() {
-		$('#rent-item-list').hide('blind', 500);
-		$('#rent-user-list').show('blind', 500);		
-	});
-	
-	$('#rent-item-label').click(function() {
-		$('#rent-user-list').hide('blind', 500);		
-		$('#rent-item-list').show('blind', 500);
-	});
-}
 
 function tripFormListener() {
 	
@@ -171,29 +159,18 @@ $(document).ready(function() {
 			</div>
 			<div class="input-form">
 				<div class="user-form">
-					<button id="rent-user-add" class="add-button">+</button>
-				 	<button id="rent-user-label" class="label-button">Users</button>
+					<button id="rent-user-add-button" class="add-button">+</button>
+				 	<button id="rent-user-label-button" class="label-button">Users</button>
 					<div class="clearDiv"></div>
 					<div id="rent-user-list" class="list">
-						<p>
-							Kelvin Nguyen<br/>
-							Albert Luk<br />
-							Sohrob Raja<br />
-							Minh Vo
-						</p>
 					</div>
 				</div>
 				<div class="clearDiv"></div>
 				<div class="items-form">
-					<button id="rent-item-add" class="add-button">+</button>
-					<button id="rent-item-label" class="label-button">Bills</button>
+					<button id="bill-add-button" class="add-button">+</button>
+					<button id="bill-label-button" class="label-button">Bills</button>
 					<div class="clearDiv"></div>
-					<div id="rent-item-list" class="list">
-						<p>
-							Electricity $49.99<br/>							
-							Internet $49.99<br/>
-							Water $49.99
-						</p>
+					<div id="bill-list" class="list">
 					</div>
 				</div>
 				<div class="clearDiv"></div>
@@ -206,6 +183,30 @@ $(document).ready(function() {
 				<div class="clearDiv"></div>
 				<button id="rent-invoice" class="invoice-button">Invoice</button>
 			</div>
+			<div id="rent-user-dialog-list" title="Select User">
+				<ul>
+				</ul>
+			</div>
+			<div id="rent-user-dialog-input" title="Set User Info">
+				<label for="rent-user-name-input">Name</label><br/>
+				<input type="text" name="rent-user-name-input" id="rent-user-name-input" class="dialog-input"/><br/>
+				<label for="rent-user-email-input">Email</label><br/>
+				<input type="text" name="rent-user-email-input" id="rent-user-email-input" class="dialog-input"/><br/>
+				<label for="rent-user-phone-input">Phone</label><br/>
+				<input type="text" name="rent-user-phone-input" id="rent-user-phone-input" class="dialog-input"/>
+			</div>
+			<div id="bill-dialog-list" title="Select Bill">
+				<ul>
+				</ul>
+			</div>
+			<div id="bill-dialog-input" title="Set Bill Info">
+				<span id='bill-name-input-span'>
+					<label for="bill-name-input">Name</label><br/>
+					<input type="text" name="bill-name-input" id="bill-name-input" class="dialog-input"/><br/>
+				</span>
+				<label for="bill-price-input">Price</label><br/>
+				<input type="text" name="bill-price-input" id="bill-price-input" class="dialog-input"/>
+			</div>
 		</div>
 		<div class="clearDiv"></div>
 		<div id="tripForm" style="display:none;">
@@ -214,8 +215,8 @@ $(document).ready(function() {
 			</div>
 			<div class="input-form">
 				<div class="user-form">
-					<button id="trip-user-add" class="add-button">+</button>
-				 	<button id="trip-user-label" class="label-button">Users</button>
+					<button id="trip-user-add-button" class="add-button">+</button>
+				 	<button id="trip-user-label-button" class="label-button">Users</button>
 					<div class="clearDiv"></div>
 					<div id="trip-user-list" class="list">
 						<p>
@@ -228,8 +229,8 @@ $(document).ready(function() {
 				</div>
 				<div class="clearDiv"></div>
 				<div class="items-form">
-					<button id="trip-item-add" class="add-button">+</button>
-					<button id="trip-item-label" class="label-button">Travel Items</button>
+					<button id="trip-item-add-button" class="add-button">+</button>
+					<button id="trip-item-label-button" class="label-button">Travel Items</button>
 					<div class="clearDiv"></div>
 					<div id="trip-item-list" class="list">
 						<p>

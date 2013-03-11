@@ -1,4 +1,4 @@
-body{
+body, .ui-button{
 	font-family: 'Roboto Condensed', sans-serif;
 	font-size:18px;
 }
@@ -141,7 +141,7 @@ li:hover {
 }
 
 .icon-button, .link-button {
-	font-size:16px;
+	font-size:14px;
 	background:#D0D3AB;
 }
 
@@ -150,7 +150,7 @@ li:hover {
 	font-size:12px;
 	padding:5px;
 	width:95%;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 	margin-top:5px; 
 }
 
@@ -158,4 +158,15 @@ li:hover {
 	font-family: 'Roboto Condensed', sans-serif;
 	font-size:14px;
 	padding:3px;
-} 
+}
+
+.ui-dialog, .ui-dialog button, .ui-dialog input{
+	font-size:95%;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+.small-info-text
+{
+	font-size:12px;
+}
+

@@ -1,5 +1,6 @@
 var foodUserList = new Array();		
 var foodItemList = new Array();
+var isNewItem = true; 
 
 function foodItem(name, price, quantity)
 {
@@ -26,10 +27,67 @@ function removeUser(name, email, phone)
 
 function editFoodItem(name, price, quantity)
 {
+	isNewItem = false;
+	
+	$('#food-item-name-input').val(name);
+	$('#food-item-price-input').val(price);
+	$('#food-item-quantity-input').val(quantity);
+	$('#food-item-name-input').attr("disabled", true);
+	$('#food-item-dialog-input').dialog('open');
 }
 
 function linkFoodItem(name, price, quantity)
 {
+	var contactHtml = ''; 
+	
+	foodUserList.sort(compareNames);
+	
+	/*
+	for(var i = 0; i < foodContactList.length; i++)
+	{
+		contactHtml += '<li>' + foodContactList[i].name + '</li>'		
+	}
+	
+	$('#food-user-dialog-list ul').html(contactHtml);
+	
+	$('#food-user-dialog-list li').click(function() {
+		
+		var selection = $(this).text();
+		
+		if(selection == "New User")
+		{
+			$('#food-user-name-input').val('');
+			$('#food-user-email-input').val('');
+			$('#food-user-phone-input').val('');
+		
+			$('#food-user-dialog-list').dialog('close');
+			$('#food-user-dialog-input').dialog('open');
+		}
+		else
+		{
+			for(var i = 0; i < foodContactList.length; i++)
+			{
+				var name = foodContactList[i].name; 
+				var email = foodContactList[i].email; 
+				var phone = foodContactList[i].pone; 
+				
+				if(name == selection)
+				{
+					foodUserList.push(new person(name, email, phone));
+					foodContactList.splice(i, 1);
+					populateFoodUserList();
+					
+					break;
+				}
+			}
+			
+			$('#food-user-dialog-list').dialog('close');
+		}
+	});
+	
+	$('#food-user-dialog-list').dialog('open');
+	$('#food-user-label-button').click();
+	*/
 }
 
 
@@ -37,6 +95,7 @@ function populateFoodUserList()
 {
 	var foodUserListHtml = "";
 	
+	foodUserList.sort(compareNames);
 	for(var i = 0; i < foodUserList.length; i++)
 	{
 		var currName = foodUserList[i].name; 
@@ -60,18 +119,23 @@ function populateFoodItemList()
 {
 	var foodItemListHtml = "";
 	
+	foodItemList.sort(compareNames);
 	for(var i = 0; i < foodItemList.length; i++)
 	{
 		var currName = foodItemList[i].name; 
 		var currPrice = foodItemList[i].price;
 		var currQuantity = foodItemList[i].quantity; 	
 		
+		var subTotal = Math.round(currPrice * currQuantity *100) / 100; 
+		
 		foodItemListHtml += '<div class="items-form">' + 
-				'<button class="icon-button" onclick="editFoodItem(\'' 
+				'<div style="float:left;"><button class="icon-button" onclick="editFoodItem(\'' 
 						+ currName + '\', \'' + currPrice + '\', \'' + currQuantity +'\')">-</button>&nbsp;' + 
 				'<button class="link-button" onclick="linkFoodItem(\'' 
 						+ currName + '\', \'' + currPrice + '\', \'' + currQuantity +'\')">-</button>&nbsp;' + 
-				currName + '</div>'; 
+						'' + currName + ' (x' + currQuantity + ') - <span class="small-info-text">$' + currPrice + '</span></div>' + 
+				'<div style="float:right;">$' + subTotal + '</div></div>' + 
+				'<div class="clearDiv"></div>'; 
 		
 	}
 	
@@ -112,7 +176,7 @@ function foodUserDialogListener()
 			"Add": function() {
 				var name = $('#food-user-name-input').val();
 				var email = $('#food-user-email-input').val();
-				var phone = $('#food-user-email-input').val();
+				var phone = $('#food-user-phone-input').val();
 				
 				var isNameFound = false; 
 				
@@ -151,7 +215,6 @@ function foodUserDialogListener()
 	});
 
 	$('#food-user-add-button').click(function() {
-
 		var contactHtml = '<li class="newSelector">New User</li>'; 
 		
 		foodContactList.sort(compareNames);
@@ -181,7 +244,7 @@ function foodUserDialogListener()
 				{
 					var name = foodContactList[i].name; 
 					var email = foodContactList[i].email; 
-					var phone = foodContactList[i].pone; 
+					var phone = foodContactList[i].phone; 
 					
 					if(name == selection)
 					{
@@ -219,38 +282,77 @@ function foodItemDialogListener()
 		height: 400,
 		buttons: {
 			"Cancel": function() {
-				$(this).dialog('close')
+				$(this).dialog('close');
+			},
+			"Delete": function() {
+				if(!isNewItem) 
+				{
+					var name = $('#food-item-name-input').val();
+					
+					for(var i = 0; i < foodItemList.length; i++)
+					{
+						if(name == foodItemList[i].name)
+						{
+							foodItemList.splice(i, 1);
+							break;
+						}
+								
+					}
+					populateFoodItemList();
+				}
+				
+				$(this).dialog('close');
 			},
 			"Add": function() {
+				
 				var name = $('#food-item-name-input').val();
 				var price = $('#food-item-price-input').val();
 				var quantity = $('#food-item-quantity-input').val();
-				
-				var isNewItem = true; 
 				
 				for(var i = 0; i < foodItemList.length; i++)
 				{
 					if(name == foodItemList[i].name)
 					{
-						//foodItemList[i].price = price;
-						isNewItem = false;
-						alert('Food Item with that name already exists!');
+						if(isNewItem)
+						{
+							//foodItemList[i].price = price;
+							isNewItem = false;
+							alert('Food Item with that name already exists!');							
+						}
+						else
+						{
+							foodItemList[i].price = price;
+							foodItemList[i].quantity = quantity;
+						}
 						break;
 					}
 							
 				}
 				
-				if(isNewItem)
-					foodItemList.push(new foodItem(name, price, quantity));
-				
-				populateFoodItemList();
-				$(this).dialog('close');
+				if(!isNaN(price) && !isNaN(quantity))
+				{
+					if(price == "")
+						price = 0;
+					
+					if(quantity == "")
+						quantity = 0; 
+					
+					if(isNewItem)
+						foodItemList.push(new foodItem(name, price, quantity));
+					
+					populateFoodItemList();
+					$(this).dialog('close');
+				}
+				else
+				{
+					alert('Please insert valid values for price and/or quantity');
+				}
 			} 
 		}
 	});
 
 	$('#food-item-add-button').click(function() {
-		
+		$('#food-item-name-input').removeAttr("disabled");
 		var foodListHtml = '<li class="newSelector">New Food Item</li>';
 		/*
 		for(var i = 0; i < foodItemList.length; i++)
@@ -270,6 +372,7 @@ function foodItemDialogListener()
 				$('#food-item-name-input').val('');
 				$('#food-item-price-input').val('');
 				$('#food-item-quantity-input').val('');
+				isNewItem = true;
 			}
 			else
 			{
