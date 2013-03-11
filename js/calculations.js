@@ -17,12 +17,12 @@ function calculateTravelInvoice(allPersonList, travelItemList)
 		{
 			
 			if(isNaN(currTotalMap[travelItemList[i].personList[j].name]))
-			{
-				currTotalMap[travelItemList[i].personList[j].name] = travelItemList[i].price;	
+			{s
+				currTotalMap[travelItemList[i].personList[j].name] = travelItemList[i].price/travelItemList[i].personList.length;	
 			}
 			else 
 			{
-				currTotalMap[travelItemList[i].personList[j].name] += travelItemList[i].price;					
+				currTotalMap[travelItemList[i].personList[j].name] += travelItemList[i].price/travelItemList[i].personList.length;					
 			}
 
 		}
