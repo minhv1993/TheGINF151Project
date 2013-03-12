@@ -35,8 +35,7 @@ foreach($loc as $contact){
     	</div>
     </li>';
 	$i++;
-}
-?>
+} ?>
 <div data-role="header" data-theme="b" data-position="fixed">
 	<a href="index.php" class="ui-btn-left ui-icon-nodisc" data-iconshadow="false" data-rol="button" data-inline="true" data-iconpos="notext" data-icon="home" data-theme="b" data-corners="false"></a>
 	<span class="ui-title">Contacts</span>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<history>
+    <event type="food">
+        <users>
+            <user>Albert Luk</user>
+            <user>Kelvin Nguyen</user>
+            <user>Minhnhut Vo</user>
+        </users>
+        <items>
+            <item name="Pizza" price="50">
+                <invoice user="Albert Luk">20</invoice>
+                <invoice user="Kelvin Nguyen">15</invoice>
+                <invoice user="Minhnhut Vo">15</invoice>
+            </item>
+        </items>
+        <totalPot>50</totalPot>
+    </event>
+</history>
