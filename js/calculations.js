@@ -1,9 +1,9 @@
+var currTotalMap = {};
 
 function calculateTravelInvoice(allPersonList, itemsList)
 {
 	var amountToPay = {};
 
-	var currTotalMap = {};
 	var totalPot = 0;
 
 	//Populates and increments overall contributed to the pot
