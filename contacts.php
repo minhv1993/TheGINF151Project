@@ -21,16 +21,15 @@ foreach($loc as $contact){
     	<div id="editContact'.$i.'" data-role="popup" data-theme="b" data-overlay-theme="a" data-dismissible="false" data-corners="false">
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<form id="contact-form" class="form-dialog contact-form">
-				<div>	
-					<h3>Edit Contact</h3>
-					<input type="hidden" name="id" id="id" value="'.$contact->getName().'">
-					<label for="name" class="ui-hidden-accessible">Name:</label>
-					<input type="text" name="name" id="name" value="'.$contact->getName().'" placeholder="Name" data-theme="b" data-clear-btn="true">
-					<label for="phone" class="ui-hidden-accessible">Phone:</label>
-					<input type="text" name="phone" id="phone" value="'.$contact->getPhone().'" placeholder="Phone" data-theme="b" data-clear-btn="true">
-					<label for="email" class="ui-hidden-accessible">Email:</label>
-					<input type="text" name="email" id="email" value="'.$contact->getEmail().'" placeholder="Email" data-theme="b" data-clear-btn="true">
-					<button type="submit" name="subtype" data-theme="b" value="edit">Edit</button>
+				<h3>Edit Contact</h3>
+				<input type="hidden" name="id" id="id" value="'.$contact->getName().'">
+				<label for="name" class="ui-hidden-accessible">Name:</label>
+				<input type="text" name="name" id="name" value="'.$contact->getName().'" placeholder="Name" data-theme="b" data-clear-btn="true">
+				<label for="phone" class="ui-hidden-accessible">Phone:</label>
+				<input type="text" name="phone" id="phone" value="'.$contact->getPhone().'" placeholder="Phone" data-theme="b" data-clear-btn="true">
+				<label for="email" class="ui-hidden-accessible">Email:</label>
+				<input type="text" name="email" id="email" value="'.$contact->getEmail().'" placeholder="Email" data-theme="b" data-clear-btn="true">
+				<button type="submit" name="subtype" data-theme="b" value="edit">Edit</button>
 			</form>
     	</div>
     </li>';
