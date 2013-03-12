@@ -46,7 +46,7 @@ function calculateTravelInvoice(allPersonList, itemsList)
 
 
 
-//FOOD STUFF
+//FOOD PORTION ***********************************************
 function person (name, email, phone) {
 	this.name = name;
 	this.email = email;
