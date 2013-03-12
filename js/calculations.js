@@ -165,3 +165,72 @@ function itemByPerson(pList, iList) {
 	return mapPersonToItems;
 }
 
+
+//RENT PORTION ***********************************
+function bill(billName, cost, personList)
+{
+	this.billName = billName;
+	this.cost = cost;
+	this.personList = personList;
+
+}
+
+function calculateRentInvoice(allPersonList, billList, rentCost)
+{
+
+	var currBillPaidMap = {};
+
+
+	this.allPersonList = allPersonList;
+	this.billList = billList;
+	this.rentCost = rentCost;
+	
+
+	var splitRentalCost = Math.round(rentCost/(allPersonList.length)*100)/100;
+
+
+	for(var i = 0; i < allPersonList.length; i++)
+	{
+		currBillPaidMap[allPersonList[i].name] = splitRentalCost;
+	}
+
+	for(var j = 0; j < billList.length; j++)
+	{
+		var dividedBill = (Math.round((billList[j].cost/allPersonList.length)*100)/100);
+		
+		for(var k = 0; k < billList[j].personList.length; k++)
+		{
+			currBillPaidMap[billList[j].personList[k].name] -= dividedBill*(allPersonList.length - billList[j].personList.length);
+
+		}
+
+		//loop through
+		for(var l = 0; l < allPersonList.length; l++)
+		{
+			var checkPersonList = false;
+			for(var m = 0; m < billList[j].personList.length; m++)
+			{
+				if(billList[j].personList[m].name == allPersonList[l].name)
+				{
+					//if true don't add, if false increment whats left to their map key
+					checkPersonList = true;
+				}
+			}
+			if(checkPersonList == false)
+			{
+				currBillPaidMap[allPersonList[l].name] += parseFloat(dividedBill * billList[j].personList.length);
+			}
+		}
+	}
+return currBillPaidMap;
+}
+
+function sumBills(billList)
+{
+	var sumBills = 0; 
+	for(var i = 0; i < billList.length; i++)
+	{
+		sumBills += parseFloat(billList[i].cost);
+	}
+	return sumBills;
+}
