@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <history>
-    <event type="food">
+    <event type="Food">
         <users>
             <user>Albert Luk</user>
             <user>Kelvin Nguyen</user>

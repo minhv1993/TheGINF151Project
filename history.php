@@ -2,6 +2,7 @@
 include('classes/event.class.php');
 $xml = simplexml_load_file('xml/history.xml');
 $history = new ArrayObject();
+$type = '';
 foreach($xml->children() as $child) {
 	$users = new ArrayObject();
 	foreach($child->users->children() as $user) {
@@ -11,8 +12,9 @@ foreach($xml->children() as $child) {
 	foreach($child->items->children() as $item){
 		$items->append($item);
 	}
+	$attr = $child->attributes();
 	$event = new Event();
-	$event->_construct($users, $items, $child->totalPot);
+	$event->_construct($users, $items, $child->totalPot, $attr[0]);
 	$history->append($event);
 }
 $count = $history->count();
@@ -20,7 +22,7 @@ $loe = $history->getArrayCopy();
 $historyList = '';
 for($i = 0; $i < $count; $i++){
 	$historyList .= '<li>
-    	<a href="#viewEvent'.$i.'" data-rel="popup" data-transition="pop" data-position-to="window">Temp Name</a>
+    	<a href="#viewEvent'.$i.'" data-rel="popup" data-transition="pop" data-position-to="window">'.$loe[0]->getType().' Event</a>
     	<div id="viewEvent'.$i.'" data-role="popup" data-theme="b" data-overlay-theme="a" data-dismissible="false" data-corners="false">
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			<div class="form-dialog">
