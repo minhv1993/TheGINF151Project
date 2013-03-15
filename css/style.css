@@ -35,34 +35,13 @@ h5 {margin-top:0;}
 #app-name {
 	text-align:center;
 }
+/* ------------- quickSelect.html ------------- */
 
-#nav-bar h2 {
-	margin:0;
-	padding:0;
-}
-
-#home-content {
-	width:100%;
+#content-php{
 	text-align:center;
 }
 
-#home-content a {
-	width:49%;
-	margin:0.5% 0;
-}
-
-a.setting-button {
-	padding:14px;
-	margin:0;
-	position:fixed;
-	top:0px;
-	right:0px;
-}
-
-
-/* ------------- quickSelect.html ------------- */
-
-.title-bar {
+.title-bar, .title-bar-php {
 	position:relative;
 	height:50px;
 	width:100%;
@@ -73,7 +52,11 @@ a.setting-button {
 	font-size: 24px;
 }
 
-.title-bar p {
+.title-bar-php {
+	top: 0px;
+}
+
+.title-bar p, .title-bar-php p {
 	padding-top:10px;
 }
 
@@ -82,12 +65,31 @@ a.setting-button {
 	font-size:26px;
 }
 
-.input-form {
+a.split-button .ui-btn-inner span.ui-btn .ui-btn-inner{
+	padding:0px;
+	margin-left:-1px;
+	padding-top:2px;
+}
+
+li.ui-btn div.ui-li-has-alt {
+	padding:0px;
+}
+
+.ui-collapsible-headding li.ui-btn .ui-btn-inner .ui-btn-text a.ui-link-inherit {
+	padding:5px;
+}
+
+.input-form, .input-form-php {
 	position:relative;
 	top:40px;
 	margin-top:5%;
 	width:90%;
 	margin-left:5%;
+}
+
+.input-form-php {
+	top:0px;
+	margin-top:0px;
 }
 
 .items-form {
