@@ -488,13 +488,14 @@ function foodInvoiceListener()
 			var tipPercent = $('#tipInput').val(); 
 			var taxPercent = $('#taxInput').val();
 			
-			if(isNaN(tipPercent))
+			if(isNaN(tipPercent) || tipPercent == "")
 				tipPercent = 0; 
 			
-			if(isNaN(taxPercent))
+			if(isNaN(taxPercent) || taxPercent == "")
 				taxPercent = 0; 
 			
 			var foodCalculationsMap = calculatePricePerPerson(foodUserList, tipPercent, taxPercent, foodItemList);
+			var personToItemsMap = itemByPerson(foodUserList, foodItemList);
 			
 			invoiceHtml += '<div class="newSelector" style="margin-bottom:10px;">' + 
 					'<div style="float:left;">Name</div>' + 
@@ -510,12 +511,21 @@ function foodInvoiceListener()
 				
 				currPay = Math.round(currPay * 100) / 100;
 				
-				if(currPay >= 0)
-					invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
-						'<div style="float:right;">$' + currPay + '</div><br/>';
-				else
-					invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
-						'<div style="float:right;">-$' + parseFloat(currPay *-1)+ '</div><br/>';
+				
+				invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
+					'<div style="float:right;">$' + currPay + '</div><br/>';
+				
+				var currItemList = personToItemsMap[currName];
+				for(var j = 0; j < currItemList.length; j++)
+				{
+					var currItem = currItemList[j].name;
+					var currPrice = Math.round(currItemList[j].price / currItemList[j].personList.length * 100) / 100;
+					
+					invoiceHtml +='<div style="float:left;margin-left:15px;" class="small-info-text">'
+						+ currItem + '</div>' + 
+						'<div style="float:right;" class="small-info-text">$' + currPrice + '</div><br/>'; 
+				}
+			
 			}
 			
 			invoiceHtml += '<div class="clearDiv" style="margin-bottom:20px;"></div>' + 
@@ -531,7 +541,6 @@ function foodInvoiceListener()
 				'<div style="float:right;">' + tipPercent + '%</div><br/>';
 			
 			invoiceHtml += '<div class="clearDiv" style="margin-bottom:20px;"></div>' + 
-
 				'<div style="float:left;">Total</div>' + 
 				'<div style="float:right;">$' + totalFoodBill(foodItemList, tipPercent, taxPercent) + '</div><br/>';
 			

@@ -466,48 +466,93 @@ function rentLinkDialogListener()
 function rentInvoiceListener()
 {
 	$('#rent-invoice-button').click(function() {
-		
-		var invoiceHtml = '<div class="invoice-bar"><p>Rent Invoice</p></div><br/><br/>';
 		var rentCost = $('#rentInput').val();
-		var rentCalculationsMap = calculateRentInvoice(rentUserList, billList, rentCost);
-
-		if(isNaN(tipPercent))
-			rentCost = 0; 
+		var isAllLinked = true; 
 		
-		invoiceHtml += '<div class="newSelector" style="margin-bottom:10px;">' + 
-				'<div style="float:left;">Name</div>' + 
-				'<div style="float:right;">Rent Due</div><br/></div>';
-		
-		for(var i = 0; i < rentUserList.length; i++)
+		for(var i = 0; i < billList.length; i++)
 		{
-			var currName = rentUserList[i].name;
-			var currPay = rentCalculationsMap[currName];
-			
-			currPay = Math.round(currPay * 100) / 100;
-			
-			if(currPay >= 0)
-				invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
-					'<div style="float:right;">$' + currPay + '</div><br/>';
-			else
-				invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
-					'<div style="float:right;">-$' + parseFloat(currPay *-1)+ '</div><br/>';
+			if(billList[i].personList.length == 0)
+			{
+				isAllLinked = false;
+				break;
+			}
 		}
 		
-		invoiceHtml += '<div class="clearDiv"></div>' + 
-				'<button id="rent-back-button" class="invoice-button">Back</button>';
-		
-		
-		$('#rent-page').fadeOut(500, function() {
-			$('#rent-invoice').html(invoiceHtml);
-			$('#rent-invoice').fadeIn(500);
+		if(isNaN(rentCost) || rentCost == "")
+		{
+			alert('Please insert the price for rent');
+		}
+		else if(!isAllLinked)
+		{
+			alert('You have bills that are not linked!');		
+		}
+		else
+		{
+			var invoiceHtml = '<div class="invoice-bar"><p>Rent Invoice</p></div><br/><br/>';
+			var rentCalculationsMap = calculateRentInvoice(rentUserList, billList, rentCost);
+	
+
+			invoiceHtml += '<div class="newSelector" style="margin-bottom:10px;">' + 
+				'<div style="float:left;">Rent/Bills Summary</div>' + 
+				'<div style="float:right;"></div><br/></div>';
 			
-			$('#rent-back-button').button().click(function() {
-				$('#rent-invoice').fadeOut(500, function() {
-					$('#rent-page').fadeIn(500);
+			invoiceHtml += '<div style="float:left;">Rent</div>' + 
+				'<div style="float:right;">$' + rentCost + '</div><br/>';
+			
+			for (var i = 0; i < billList.length; i++)
+			{
+				var currName = billList[i].name;
+				var currPrice = billList[i].price; 
+				var personPrice = Math.round(currPrice / billList[i].personList.length * 100) / 100;
+				
+				invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
+					'<div style="float:right;">$' + currPrice + '</div><br/>';
+				
+				for(var j = 0; j < billList[i].personList.length; j++)
+				{
+					var currPerson = billList[i].personList[j].name;
+					
+					invoiceHtml +='<div style="float:left;margin-left:15px;" class="small-info-text">'+ currPerson + '</div>' + 
+						'<div style="float:right;" class="small-info-text">$' + personPrice + '</div><br/>'; 
+				}
+			}
+			
+			
+			invoiceHtml += '<div class="clearDiv" style="margin-bottom:20px;"></div>' +
+					'<div class="newSelector" style="margin-bottom:10px;">' + 
+					'<div style="float:left;">Name</div>' + 
+					'<div style="float:right;">Rent Due</div><br/></div>';
+			
+			for(var i = 0; i < rentUserList.length; i++)
+			{
+				var currName = rentUserList[i].name;
+				var currPay = rentCalculationsMap[currName];
+				
+				currPay = Math.round(currPay * 100) / 100;
+				
+				if(currPay >= 0)
+					invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
+						'<div style="float:right;">$' + currPay + '</div><br/>';
+				else
+					invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
+						'<div style="float:right;">-$' + parseFloat(currPay *-1)+ '</div><br/>';
+			}
+			
+			invoiceHtml += '<div class="clearDiv"></div>' + 
+					'<button id="rent-back-button" class="invoice-button">Back</button>';
+			
+			
+			$('#rent-page').fadeOut(500, function() {
+				$('#rent-invoice').html(invoiceHtml);
+				$('#rent-invoice').fadeIn(500);
+				
+				$('#rent-back-button').button().click(function() {
+					$('#rent-invoice').fadeOut(500, function() {
+						$('#rent-page').fadeIn(500);
+					});
 				});
 			});
-		});
-		
+		}
 	});
 }
 

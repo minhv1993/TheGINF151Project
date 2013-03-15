@@ -157,7 +157,7 @@ function populateTravelItemList()
 	}
 	
 	potAmount = Math.round(potAmount * 100) / 100;
-	$('#travelPotInput').val('$' + potAmount);
+	$('#travelPotInput').val(potAmount);
 	
 	$('#travel-item-list').html(travelItemListHtml);
 	$('#travel-item-list .icon-button').button({
@@ -474,18 +474,65 @@ function travelLinkDialogListener()
 function travelInvoiceListener()
 {
 	$('#travel-invoice-button').click(function() {
-		
+		var totalPot = $('#travelPotInput').val(); 
 		var invoiceHtml = '<div class="invoice-bar"><p>Travel Invoice</p></div><br/><br/>';
 		var tripCalculationsMap = calculateTravelInvoice(travelUserList, travelItemList);
 		
+		var perPerson = Math.round(totalPot / travelUserList.length * 100) / 100; 
+		
 		invoiceHtml += '<div class="newSelector" style="margin-bottom:10px;">' + 
+			'<div style="float:left;">Item Summary</div>' + 
+			'<div style="float:right;"></div><br/></div>';
+		
+		//Item Summary
+		for (var i = 0; i < travelItemList.length; i++)
+		{
+			var currName = travelItemList[i].name;
+			var currPrice = travelItemList[i].price; 
+			var peopleLinked = travelItemList[i].personList.length;
+			
+			invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
+				'<div style="float:right;">$' + currPrice + '</div><br/>';
+			
+			if(peopleLinked == 0)
+			{
+				var personPrice = Math.round(currPrice / travelUserList.length * 100) / 100;
+				
+				invoiceHtml +='<div style="float:left;margin-left:15px;" class="small-info-text">Per Person Owes</div>' + 
+					'<div style="float:right;" class="small-info-text">$' + personPrice + '</div><br/>'; 
+			}
+			else
+			{
+				var personPrice = Math.round(currPrice / travelItemList[i].personList.length * 100) / 100;
+				
+				for(var j = 0; j < travelItemList[i].personList.length; j++)
+				{
+					var currPerson = travelItemList[i].personList[j].name;
+					
+					invoiceHtml +='<div style="float:left;margin-left:15px;" class="small-info-text">'+ currPerson + '</div>' + 
+						'<div style="float:right;" class="small-info-text">$' + personPrice + '</div><br/>'; 
+				}
+			}
+		}
+
+		invoiceHtml += '<div class="clearDiv" style="margin-bottom:10px;"></div>' + 
+			'<div style="float:left;">Total Pot</div>' + 
+			'<div style="float:right;">$' + totalPot + '</div><br/>';
+		
+		invoiceHtml += '<div style="float:left;margin-left:15px;" class="small-info-text">Per Person Owes</div>' + 
+			'<div style="float:right;" class="small-info-text">$' + perPerson + '</div><br/>';
+		
+		invoiceHtml += '<div class="clearDiv" style="margin-bottom:20px;"></div>' + 
+				'<div class="newSelector" style="margin-bottom:10px;">' + 
 				'<div style="float:left;">Name</div>' + 
-				'<div style="float:right;">Due</div><br/></div>';
+				'<div style="float:right;">Owes</div><br/></div>';
 		
 		for(var i = 0; i < travelUserList.length; i++)
 		{
 			var currName = travelUserList[i].name;
 			var currPay = tripCalculationsMap[currName];			
+			
+			currPay = Math.round(currPay * 100) / 100;
 			
 			if(currPay >= 0)
 				invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 

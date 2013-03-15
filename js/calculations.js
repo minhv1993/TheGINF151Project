@@ -1,7 +1,6 @@
-var currTotalMap = {};
-
 function calculateTravelInvoice(allPersonList, itemsList)
 {
+	var currTotalMap = {};
 	var amountToPay = {};
 
 	var totalPot = 0;
@@ -134,20 +133,20 @@ function taxPrice(taxPercent, iList) {
 function itemByPerson(pList, iList) {
 	
 	var mapPersonToItems = {};
-	for (var p = 0; p < pList.length; p++)
+	
+	for(var i = 0; i < pList.length; i++)
 	{
-		mapPersonToItems[pList[p].name] = new Array();
-		for (var i = 0; i < iList.length; i++)
+		mapPersonToItems[pList[i].name] = new Array();
+	}
+	
+	for (var i = 0; i < iList.length; i++)
+	{
+		for (var j = 0; j < iList[i].personList.length; j++)
 		{
-			for (var j = 0; j < iList[i].personList.length; j++)
-			{
-				if (pList[p].name == iList[i].personList[j].name)
-				{
-					mapPersonToItems[pList[p].name].push(iList[i]);
-				}
-			}
+			mapPersonToItems[iList[i].personList[j].name].push(iList[i]);
 		}
 	}
+	
 	return mapPersonToItems;
 }
 
