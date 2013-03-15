@@ -182,14 +182,16 @@ function travelUserDialogListener()
 		resizable: false,
 		draggable: false,
 		modal: true,
-		height: 400
+		width: dialogWidth, 
+		height: dialogHeight
 	});
 	
 	$('#travel-user-dialog-input').dialog({
 		autoOpen:false, 
 		resizable: false, 
 		draggable: false,
-		height: 400,
+		width: dialogWidth, 
+		height: dialogHeight,
 		modal: true,
 		buttons: {
 			"Cancel": function() {
@@ -296,14 +298,16 @@ function travelItemDialogListener()
 		resizable: false,
 		draggable: false,
 		modal: true,
-		height: 400
+		width: dialogWidth, 
+		height: dialogHeight
 	});
 	
 	$('#travel-item-dialog-input').dialog({
 		autoOpen:false, 
 		resizable: false, 
 		draggable: false,
-		height: 400,
+		width: dialogWidth, 
+		height: dialogHeight,
 		modal: true,
 		buttons: {
 			"Cancel": function() {
@@ -426,7 +430,8 @@ function travelLinkDialogListener()
 		resizable: false, 
 		draggable: false,
 		modal: true,
-		height: 400,
+		width: dialogWidth, 
+		height: dialogHeight,
 		buttons: {
 			"Cancel": function() {
 				$(this).dialog('close');

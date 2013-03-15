@@ -54,13 +54,6 @@ function person (name, email, phone) {
 	
 }
 
-function foodItem(name, price, personList) {
-	this.name = name;
-	this.price = price;
-	this.personList = personList;
-}
-
-
 function calculatePricePerPerson(allPersons, tipPercent, taxPercent, iList) {
 	var mapTotalPerPerson = {};
 
@@ -70,36 +63,29 @@ function calculatePricePerPerson(allPersons, tipPercent, taxPercent, iList) {
 	var tipPerPerson = parseFloat(tip/allPersons.length);
 	var taxPerPerson = parseFloat(tax/allPersons.length);
 
-
 	for (var i = 0; i < iList.length; i++)
 	{
 		var pricePerson = Math.round(iList[i].price/iList[i].personList.length*100)/100;
+		
 		for (var j = 0; j < iList[i].personList.length; j++)
 		{
-
 			if(isNaN(mapTotalPerPerson[iList[i].personList[j].name]))
 			{
-
 				mapTotalPerPerson[iList[i].personList[j].name] = pricePerson;	
 			}
 			else 
 			{
-				mapTotalPerPerson[iList[i].personList[j].name] += pricePerson;					
+				mapTotalPerPerson[iList[i].personList[j].name] += parseFloat(pricePerson);					
 			}
 
 		}
 	}	
-
-
-
-
+	
 	for(var k = 0; k < allPersons.length; k++)
 	{
-		mapTotalPerPerson[allPersons[k].name] += parseFloat(tipPerPerson+taxPerPerson);
+		mapTotalPerPerson[allPersons[k].name] += parseFloat(tipPerPerson + taxPerPerson);
 	}
-
-	alert(sum+tip+tax);
-
+	
 	return mapTotalPerPerson;
 }
 
@@ -109,7 +95,7 @@ function totalPrice(iList) {
 	
 	for (var i = 0; i < iList.length; i++)
 	{
-		total += iList[i].price;
+		total += parseFloat(iList[i].price);
 	}
 
 	return total;
@@ -121,10 +107,10 @@ function tipPrice(tipPercent, iList) {
 	var tip;
 	for (var i = 0; i < iList.length; i++)
 	{
-		total += iList[i].price;
+		total += parseFloat(iList[i].price);
 	}
 
-	tip = Math.round(total * tipPercent*100)/100;
+	tip = Math.round(total * (tipPercent/100)*100)/100;
 
 	return tip;
 }	
@@ -135,10 +121,10 @@ function taxPrice(taxPercent, iList) {
 	var tax;
 	for (var i = 0; i < iList.length; i++)
 	{
-		total += iList[i].price;
+		total += parseFloat(iList[i].price);
 	}
 
-	tax = Math.round(total * taxPercent*100)/100;
+	tax = Math.round(total * (taxPercent/100)*100)/100;
 
 	return tax;
 }
@@ -165,21 +151,26 @@ function itemByPerson(pList, iList) {
 	return mapPersonToItems;
 }
 
-
-//RENT PORTION ***********************************
-function bill(billName, cost, personList)
+function totalFoodBill(foodItemList, tipPercent, taxPercent)
 {
-	this.billName = billName;
-	this.cost = cost;
-	this.personList = personList;
-
+	var totalPrice = 0; 
+	for(var i = 0; i < foodItemList.length; i++)
+	{
+		totalPrice += parseFloat(foodItemList[i].price);
+	}
+	
+	tax = Math.round(totalPrice * (taxPercent/100)*100)/100;
+	tip = Math.round(totalPrice * (tipPercent/100)*100)/100;
+	
+	totalPrice += parseFloat(tax) + parseFloat(tip);
+	
+	return parseFloat(totalPrice);
 }
 
+//RENT PORTION ***********************************
 function calculateRentInvoice(allPersonList, billList, rentCost)
 {
-
 	var currBillPaidMap = {};
-
 
 	this.allPersonList = allPersonList;
 	this.billList = billList;
@@ -188,7 +179,6 @@ function calculateRentInvoice(allPersonList, billList, rentCost)
 
 	var splitRentalCost = Math.round(rentCost/(allPersonList.length)*100)/100;
 
-
 	for(var i = 0; i < allPersonList.length; i++)
 	{
 		currBillPaidMap[allPersonList[i].name] = splitRentalCost;
@@ -196,7 +186,8 @@ function calculateRentInvoice(allPersonList, billList, rentCost)
 
 	for(var j = 0; j < billList.length; j++)
 	{
-		var dividedBill = (Math.round((billList[j].cost/allPersonList.length)*100)/100);
+		var dividedBill = (Math.round((billList[j].price/allPersonList.length)*100)/100);
+
 		
 		for(var k = 0; k < billList[j].personList.length; k++)
 		{
@@ -222,7 +213,8 @@ function calculateRentInvoice(allPersonList, billList, rentCost)
 			}
 		}
 	}
-return currBillPaidMap;
+	
+	return currBillPaidMap;
 }
 
 function sumBills(billList)
@@ -230,7 +222,7 @@ function sumBills(billList)
 	var sumBills = 0; 
 	for(var i = 0; i < billList.length; i++)
 	{
-		sumBills += parseFloat(billList[i].cost);
+		sumBills += parseFloat(billList[i].price);
 	}
 	return sumBills;
 }
