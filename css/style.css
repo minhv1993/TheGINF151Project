@@ -116,7 +116,7 @@ li.ui-btn div.ui-li-has-alt {
 
 .label-button {
 	float:right;
-	width:85%;
+	width:80%;
 }
 
 .list {
@@ -172,8 +172,11 @@ li:hover {
 }
 
 .ui-dialog, .ui-dialog button, .ui-dialog input{
-	font-size:95%;
+	font-size:80%;
 	font-family: 'Roboto Condensed', sans-serif;
+}
+.ui-dialog {
+	width:80%;
 }
 
 .small-info-text

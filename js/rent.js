@@ -3,10 +3,11 @@ var billList = new Array();
 var preloadedBills = new Array("Electricity", "Gas", "Sewer", "Water", "Heat/AC", "Internet");
 var isNewBill = true; 
 
-function bill(name, price)
+function bill(name, price, personList)
 {
 	this.name = name; 
 	this.price = price;
+	this.personList = personList;
 }
 
 function removeUser(name, email, phone)
@@ -21,7 +22,20 @@ function removeUser(name, email, phone)
 		}
 	}
 	
+	for(var i = 0; i < billList.length; i++)
+	{
+		for(var j = 0; j < billList[i].personList.length; j++)
+		{
+			if(name == billList[i].personList[j].name)
+			{
+				billList[i].personList.splice(j, 1);
+				break;
+			}
+		}
+	}
+	
 	populateRentUserList();
+	populateBillList();
 }
 
 
@@ -35,58 +49,50 @@ function editBill(name, price)
 	$('#bill-dialog-input').dialog('open');
 }
 
-function linkBill(name, price, quantity)
+function linkBill(name, price)
 {
-	var contactHtml = ''; 
-	
+	var rentUserListHtml = '';
 	rentUserList.sort(compareNames);
 	
-	/*
-	for(var i = 0; i < rentContactList.length; i++)
+	var currUserList = new Array();
+	
+	//Obtains list of people linked to this item
+	for(var i = 0; i < billList.length; i++)
 	{
-		contactHtml += '<li>' + rentContactList[i].name + '</li>'		
+		if(billList[i].name == name)
+			currUserList = billList[i].personList;
 	}
 	
-	$('#rent-user-dialog-list ul').html(contactHtml);
-	
-	$('#rent-user-dialog-list li').click(function() {
+	//check boxes of those users with a link
+	for(var i = 0; i < rentUserList.length; i++)
+	{
+		var currName = rentUserList[i].name;
+		var isNameFound = false; 
 		
-		var selection = $(this).text();
-		
-		if(selection == "New User")
+		for(var j = 0; j < currUserList.length; j++)
 		{
-			$('#rent-user-name-input').val('');
-			$('#rent-user-email-input').val('');
-			$('#rent-user-phone-input').val('');
+			if(currUserList[j].name == currName)
+			{	
+				isNameFound = true;
+				break;
+			}
+		}
 		
-			$('#rent-user-dialog-list').dialog('close');
-			$('#rent-user-dialog-input').dialog('open');
+		if(!isNameFound)
+		{
+			rentUserListHtml += '<input type="checkbox" name="rentUser" value="' 
+				+ currName + '" class="checkbox">' + currName + '<br/>'
 		}
 		else
 		{
-			for(var i = 0; i < rentContactList.length; i++)
-			{
-				var name = rentContactList[i].name; 
-				var email = rentContactList[i].email; 
-				var phone = rentContactList[i].pone; 
-				
-				if(name == selection)
-				{
-					rentUserList.push(new person(name, email, phone));
-					rentContactList.splice(i, 1);
-					populaterentUserList();
-					
-					break;
-				}
-			}
-			
-			$('#rent-user-dialog-list').dialog('close');
+			rentUserListHtml += '<input type="checkbox" name="rentUser" value="' + 
+				currName + '" class="checkbox" checked="true">' + currName + '<br/>'
 		}
-	});
+	}
 	
-	$('#rent-user-dialog-list').dialog('open');
-	$('#rent-user-label-button').click();
-	*/
+	$('#rent-user-dialog-link').dialog("option", "title", name);
+	$('#rent-user-dialog-link').html(rentUserListHtml);
+	$('#rent-user-dialog-link').dialog('open');
 }
 
 
@@ -118,29 +124,33 @@ function populateRentUserList()
 function populateBillList()
 {
 	var billListHtml = "";
-	var potAmount = 0; 
 	billList.sort(compareNames);
-	
+
 	for(var i = 0; i < billList.length; i++)
 	{
+
 		var currName = billList[i].name; 
 		var currPrice = billList[i].price;
-		
-		potAmount += parseFloat(currPrice); 
-		
+
 		billListHtml += '<div class="items-form">' + 
-				'<span style="float:left;"><button class="icon-button" onclick="editBill(\'' 
-						+ currName + '\', \'' + currPrice + '\')">-</button>&nbsp;' + 
+				'<div style="float:left;"><button class="icon-button" onclick="editBill(\'' 
+					+ currName + '\', \'' + currPrice + '\')">-</button>&nbsp;' + 
 				'<button class="link-button" onclick="linkBill(\'' 
-						+ currName + '\', \'' + currPrice + '\')">-</button>&nbsp;' + 
-						'' + currName + '</span>' + 
+					+ currName + '\', \'' + currPrice + '\')">-</button>&nbsp;</div>' + 
+					'<div style="float:left;">' + currName + '<br/>' + 
+						'<span class="small-info-text">';
+		
+		for(var j = 0; j < billList[i].personList.length; j++)
+		{
+			var currPersonName = billList[i].personList[j].name; 
+			billListHtml += '[' + currPersonName + ']';
+		}
+						
+		billListHtml +='</span></div>' + 
 				'<span style="float:right;">$' + currPrice + '</span></div>' + 
 				'<div class="clearDiv"></div>'; 
-		
 	}
 	
-	potAmount = Math.round(potAmount * 100) / 100;
-	$('#rentInput').val('$' + potAmount);
 	
 	$('#bill-list').html(billListHtml);
 	$('#bill-list .icon-button').button({
@@ -165,7 +175,8 @@ function rentUserDialogListener()
 		resizable: false,
 		draggable: false,
 		modal: true,
-		height: 400
+		width: dialogWidth, 
+		height: dialogHeight
 	});
 	
 	$('#rent-user-dialog-input').dialog({
@@ -173,7 +184,8 @@ function rentUserDialogListener()
 		resizable: false, 
 		draggable: false,
 		modal: true,
-		height: 400,
+		width: dialogWidth, 
+		height: dialogHeight,
 		buttons: {
 			"Cancel": function() {
 				$(this).dialog('close')
@@ -278,7 +290,8 @@ function billDialogListener()
 		resizable: false,
 		draggable: false,
 		modal: true,
-		height: 400
+		width: dialogWidth, 
+		height: dialogHeight
 	});
 	
 	$('#bill-dialog-input').dialog({
@@ -286,7 +299,8 @@ function billDialogListener()
 		resizable: false, 
 		draggable: false,
 		modal: true,
-		height: 400,
+		width: dialogWidth, 
+		height: dialogHeight,
 		buttons: {
 			"Cancel": function() {
 				$(this).dialog('close');
@@ -338,8 +352,8 @@ function billDialogListener()
 					
 					if(isNewBill)
 					{
-						billList.push(new bill(name, price));
-						
+						billList.push(new bill(name, price, new Array()));
+
 						for(var i = 0; i < preloadedBills.length; i++)
 						{
 							if(preloadedBills[i] == name)
@@ -401,6 +415,102 @@ function billDialogListener()
 	});
 }
 
+function rentLinkDialogListener()
+{
+	$('#rent-user-dialog-link').dialog({
+		autoOpen:false, 
+		resizable: false, 
+		draggable: false,
+		modal: true,
+		width: dialogWidth, 
+		height: dialogHeight,
+		buttons: {
+			"Cancel": function() {
+				$(this).dialog('close');
+			},
+			"Link": function() {
+				var billName = $('#rent-user-dialog-link').dialog('option', 'title');
+				
+				for(var i = 0; i < billList.length; i++)
+				{
+					if(billList[i].name == billName)
+					{
+						var currUserList = new Array();
+						
+						$('#rent-user-dialog-link input[type=checkbox]:checked').each(function() {
+							var personName = $(this).val();
+							
+							for(var j = 0; j < rentUserList.length; j++)
+							{
+								if(rentUserList[j].name == personName)
+								{
+									currUserList.push(new person(personName, rentUserList[j].email, rentUserList[j].phone));
+									break;
+								}
+							}
+						});
+						
+						billList[i].personList = currUserList;
+						
+						break;
+					}
+				}
+				
+				populateBillList();
+				$(this).dialog('close');
+			} 
+		}
+	});
+}
+
+function rentInvoiceListener()
+{
+	$('#rent-invoice-button').click(function() {
+		
+		var invoiceHtml = '<div class="invoice-bar"><p>Rent Invoice</p></div><br/><br/>';
+		var rentCost = $('#rentInput').val();
+		var rentCalculationsMap = calculateRentInvoice(rentUserList, billList, rentCost);
+
+		if(isNaN(tipPercent))
+			rentCost = 0; 
+		
+		invoiceHtml += '<div class="newSelector" style="margin-bottom:10px;">' + 
+				'<div style="float:left;">Name</div>' + 
+				'<div style="float:right;">Rent Due</div><br/></div>';
+		
+		for(var i = 0; i < rentUserList.length; i++)
+		{
+			var currName = rentUserList[i].name;
+			var currPay = rentCalculationsMap[currName];
+			
+			currPay = Math.round(currPay * 100) / 100;
+			
+			if(currPay >= 0)
+				invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
+					'<div style="float:right;">$' + currPay + '</div><br/>';
+			else
+				invoiceHtml +='<div style="float:left;">' + currName + '</div>' + 
+					'<div style="float:right;">-$' + parseFloat(currPay *-1)+ '</div><br/>';
+		}
+		
+		invoiceHtml += '<div class="clearDiv"></div>' + 
+				'<button id="rent-back-button" class="invoice-button">Back</button>';
+		
+		
+		$('#rent-page').fadeOut(500, function() {
+			$('#rent-invoice').html(invoiceHtml);
+			$('#rent-invoice').fadeIn(500);
+			
+			$('#rent-back-button').button().click(function() {
+				$('#rent-invoice').fadeOut(500, function() {
+					$('#rent-page').fadeIn(500);
+				});
+			});
+		});
+		
+	});
+}
+
 function rentFormListener() {
 	
 	$('#rent-user-label-button').click(function() {
@@ -415,6 +525,6 @@ function rentFormListener() {
 	
 	rentUserDialogListener();
 	billDialogListener();
-	
-	$('#rentInput').attr('disabled', true);
+	rentLinkDialogListener();
+	rentInvoiceListener();
 }

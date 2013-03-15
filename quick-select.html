@@ -16,6 +16,9 @@
 </head>
 <body>
 <script>
+var dialogWidth = $(window).width() * .8;
+var dialogHeight = $(window).height() * .5;
+
 function person(name, phone, email)
 {
 	this.name = name;
@@ -84,131 +87,140 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<div id="form-wrapper">
-	
-	
 		<div id="foodForm" style="display:none;">
-			<div class="title-bar">
-				<p>Food</p>
-			</div>
-			<div class="input-form">
-				<div class="user-form">
-					<button id="food-user-add-button" class="add-button">+</button>
-				 	<button id="food-user-label-button" class="label-button">Users</button>
-					<div class="clearDiv"></div>
-					<div id="food-user-list" class="list">
-					</div>
+			<div id="food-page">
+				<div class="title-bar">
+					<p>Food</p>
 				</div>
-				<div class="clearDiv"></div>
-				<div class="items-form">
-					<button id="food-item-add-button" class="add-button">+</button>
-					<button id="food-item-label-button" class="label-button">Food Items</button>
-					<div class="clearDiv"></div>
-					<div id="food-item-list" class="list">
+				<div class="input-form">
+					<div class="user-form">
+						<button id="food-user-add-button" class="add-button">+</button>
+					 	<button id="food-user-label-button" class="label-button">Users</button>
+						<div class="clearDiv"></div>
+						<div id="food-user-list" class="list">
+						</div>
 					</div>
+					<div class="clearDiv"></div>
+					<div class="items-form">
+						<button id="food-item-add-button" class="add-button">+</button>
+						<button id="food-item-label-button" class="label-button">Food Items</button>
+						<div class="clearDiv"></div>
+						<div id="food-item-list" class="list">
+						</div>
+					</div>
+					<div class="clearDiv"></div>
+					<div class="extra-form">
+						<div style="float:right;">
+							<label for="tipInput">Tip % </label>
+							<input id="tipInput" type="text" />
+						</div>
+						<div class="clearDiv"></div>
+						<div style="margin-top:10px;float:right;">
+							<label for="taxInput" >Tax % </label>
+							<input id="taxInput" type="text" />
+						</div>
+						<div class="clearDiv"></div>
+						<div style="margin-top:10%;">
+							<label for="foodSubtotalInput">Subtotal </label>
+							<input id="foodSubtotalInput" type="text" />
+						</div>
+					</div>
+					<div class="clearDiv"></div>
+					<button id="food-invoice-button" class="invoice-button">Invoice</button>
 				</div>
-				<div class="clearDiv"></div>
-				<div class="extra-form">
-					<div style="float:right;">
-						<label for="tipInput">Tip % </label>
-						<input id="tipInput" type="text" />
-					</div>
-					<div class="clearDiv"></div>
-					<div style="margin-top:10px;float:right;">
-						<label for="taxInput" >Tax % </label>
-						<input id="taxInput" type="text" />
-					</div>
-					<div class="clearDiv"></div>
-					<div style="margin-top:10%;">
-						<label for="foodSubtotalInput">Subtotal </label>
-						<input id="foodSubtotalInput" type="text" />
-					</div>
+				<div id="food-user-dialog-list" title="Select User">
+					<ul>
+					</ul>
 				</div>
-				<div class="clearDiv"></div>
-				<button id="food-invoice-button" class="invoice-button">Invoice</button>
+				<div id="food-user-dialog-input" title="Set User Info">
+					<label for="food-user-name-input">Name</label><br/>
+					<input type="text" name="food-user-name-input" id="food-user-name-input" class="dialog-input"/><br/>
+					<label for="food-user-email-input">Email</label><br/>
+					<input type="text" name="food-user-email-input" id="food-user-email-input" class="dialog-input"/><br/>
+					<label for="food-user-phone-input">Phone</label><br/>
+					<input type="text" name="food-user-phone-input" id="food-user-phone-input" class="dialog-input"/>
+				</div>
+				<div id="food-item-dialog-list" title="Select Food Item">
+					<ul>
+					</ul>
+				</div>
+				<div id="food-item-dialog-input" title="Set Food Info">
+					<span id='food-item-name-input-span'>
+						<label for="food-item-name-input">Name</label><br/>
+						<input type="text" name="food-item-name-input" id="food-item-name-input" class="dialog-input"/><br/>
+					</span>
+					<label for="food-item-price-input">Price</label><br/>
+					<input type="text" name="food-item-price-input" id="food-item-price-input" class="dialog-input"/><br/>
+					<!-- <label for="food-item-quantity-input">Quantity</label><br/> 
+					<input type="text" name="food-item-quantity-input" id="food-item-quantity-input" class="dialog-input"/>-->
+				</div>
+				<div id="food-user-dialog-link" title="">
+				</div>
 			</div>
-			<div id="food-user-dialog-list" title="Select User">
-				<ul>
-				</ul>
-			</div>
-			<div id="food-user-dialog-input" title="Set User Info">
-				<label for="food-user-name-input">Name</label><br/>
-				<input type="text" name="food-user-name-input" id="food-user-name-input" class="dialog-input"/><br/>
-				<label for="food-user-email-input">Email</label><br/>
-				<input type="text" name="food-user-email-input" id="food-user-email-input" class="dialog-input"/><br/>
-				<label for="food-user-phone-input">Phone</label><br/>
-				<input type="text" name="food-user-phone-input" id="food-user-phone-input" class="dialog-input"/>
-			</div>
-			<div id="food-item-dialog-list" title="Select Food Item">
-				<ul>
-				</ul>
-			</div>
-			<div id="food-item-dialog-input" title="Set Food Info">
-				<span id='food-item-name-input-span'>
-					<label for="food-item-name-input">Name</label><br/>
-					<input type="text" name="food-item-name-input" id="food-item-name-input" class="dialog-input"/><br/>
-				</span>
-				<label for="food-item-price-input">Price</label><br/>
-				<input type="text" name="food-item-price-input" id="food-item-price-input" class="dialog-input"/><br/>
-				<label for="food-item-quantity-input">Quantity</label><br/>
-				<input type="text" name="food-item-quantity-input" id="food-item-quantity-input" class="dialog-input"/>
-			</div>
+			<div id="food-invoice"></div>
 		</div>
 		<div class="clearDiv"></div>
 		
 		
 		<div id="rentForm" style="display:none;">
-			<div class="title-bar">
-				<p>Rent</p>
-			</div>
-			<div class="input-form">
-				<div class="user-form">
-					<button id="rent-user-add-button" class="add-button">+</button>
-				 	<button id="rent-user-label-button" class="label-button">Users</button>
+			<div id="rent-page">
+				<div class="title-bar">
+					<p>Rent</p>
+				</div>
+				<div class="input-form">
+					<div class="user-form">
+						<button id="rent-user-add-button" class="add-button">+</button>
+					 	<button id="rent-user-label-button" class="label-button">Users</button>
+						<div class="clearDiv"></div>
+						<div id="rent-user-list" class="list">
+						</div>
+					</div>
 					<div class="clearDiv"></div>
-					<div id="rent-user-list" class="list">
+					<div class="items-form">
+						<button id="bill-add-button" class="add-button">+</button>
+						<button id="bill-label-button" class="label-button">Bills</button>
+						<div class="clearDiv"></div>
+						<div id="bill-list" class="list">
+						</div>
 					</div>
-				</div>
-				<div class="clearDiv"></div>
-				<div class="items-form">
-					<button id="bill-add-button" class="add-button">+</button>
-					<button id="bill-label-button" class="label-button">Bills</button>
 					<div class="clearDiv"></div>
-					<div id="bill-list" class="list">
+					<div class="extra-form">
+						<div style="float:right;">
+							<label for="rentInput">Rent </label>
+							<input id="rentInput" type="text" />
+						</div>
 					</div>
+					<div class="clearDiv"></div>
+					<button id="rent-invoice-button" class="invoice-button">Invoice</button>
 				</div>
-				<div class="clearDiv"></div>
-				<div class="extra-form">
-					<div>
-						<label for="rentInput">Rent </label>
-						<input id="rentInput" type="text" />
-					</div>
+				<div id="rent-user-dialog-list" title="Select User">
+					<ul>
+					</ul>
 				</div>
-				<div class="clearDiv"></div>
-				<button id="rent-invoice-button" class="invoice-button">Invoice</button>
+				<div id="rent-user-dialog-input" title="Set User Info">
+					<label for="rent-user-name-input">Name</label><br/>
+					<input type="text" name="rent-user-name-input" id="rent-user-name-input" class="dialog-input"/><br/>
+					<label for="rent-user-email-input">Email</label><br/>
+					<input type="text" name="rent-user-email-input" id="rent-user-email-input" class="dialog-input"/><br/>
+					<label for="rent-user-phone-input">Phone</label><br/>
+					<input type="text" name="rent-user-phone-input" id="rent-user-phone-input" class="dialog-input"/>
+				</div>
+				<div id="bill-dialog-list" title="Select Bill">
+					<ul>
+					</ul>
+				</div>
+				<div id="bill-dialog-input" title="Set Bill Info">
+					<span id='bill-name-input-span'>
+						<label for="bill-name-input">Name</label><br/>
+						<input type="text" name="bill-name-input" id="bill-name-input" class="dialog-input"/><br/>
+					</span>
+					<label for="bill-price-input">Price</label><br/>
+					<input type="text" name="bill-price-input" id="bill-price-input" class="dialog-input"/>
+				</div>
+				<div id="rent-user-dialog-link" title="">
+				</div>
 			</div>
-			<div id="rent-user-dialog-list" title="Select User">
-				<ul>
-				</ul>
-			</div>
-			<div id="rent-user-dialog-input" title="Set User Info">
-				<label for="rent-user-name-input">Name</label><br/>
-				<input type="text" name="rent-user-name-input" id="rent-user-name-input" class="dialog-input"/><br/>
-				<label for="rent-user-email-input">Email</label><br/>
-				<input type="text" name="rent-user-email-input" id="rent-user-email-input" class="dialog-input"/><br/>
-				<label for="rent-user-phone-input">Phone</label><br/>
-				<input type="text" name="rent-user-phone-input" id="rent-user-phone-input" class="dialog-input"/>
-			</div>
-			<div id="bill-dialog-list" title="Select Bill">
-				<ul>
-				</ul>
-			</div>
-			<div id="bill-dialog-input" title="Set Bill Info">
-				<span id='bill-name-input-span'>
-					<label for="bill-name-input">Name</label><br/>
-					<input type="text" name="bill-name-input" id="bill-name-input" class="dialog-input"/><br/>
-				</span>
-				<label for="bill-price-input">Price</label><br/>
-				<input type="text" name="bill-price-input" id="bill-price-input" class="dialog-input"/>
+			<div id="rent-invoice">
 			</div>
 		</div>
 		<div class="clearDiv"></div>
