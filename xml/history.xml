@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <history>
-    <event type="Food">
+    <event date="3-12-2013">
+        <info>
+            <name>ACDC Potluck</name>
+            <category>Food</category>
+        </info>
         <users>
             <user>Albert Luk</user>
             <user>Kelvin Nguyen</user>
@@ -12,7 +16,47 @@
                 <invoice user="Kelvin Nguyen">15</invoice>
                 <invoice user="Minhnhut Vo">15</invoice>
             </item>
+            <item name="Sushi" price="80">
+                <invoice user="Albert Luk">20</invoice>
+                <invoice user="Kelvin Nguyen">15</invoice>
+                <invoice user="Minhnhut Vo">15</invoice>
+            </item>
+            <item name="Sodas" price="20">
+                <invoice user="Albert Luk">20</invoice>
+                <invoice user="Kelvin Nguyen">15</invoice>
+                <invoice user="Minhnhut Vo">15</invoice>
+            </item>
         </items>
-        <totalPot>50</totalPot>
+        <totalPot>150</totalPot>
+    </event>
+    <event date="3-1-2013">
+        <info>
+            <name>Road Trip to Las Vegas</name>
+            <category>Travel</category>
+        </info>
+        <users>
+            <user>Albert Luk</user>
+            <user>Kelvin Nguyen</user>
+            <user>Minhnhut Vo</user>
+            <user>Sohrob Raja</user>
+        </users>
+        <items>
+            <item name="Hotel" price="300">
+                <invoice user="Albert Luk">20</invoice>
+                <invoice user="Kelvin Nguyen">15</invoice>
+                <invoice user="Minhnhut Vo">15</invoice>
+            </item>
+            <item name="Gas" price="200">
+                <invoice user="Albert Luk">20</invoice>
+                <invoice user="Kelvin Nguyen">15</invoice>
+                <invoice user="Sohrob Raja">15</invoice>
+            </item>
+            <item name="Car Rental" price="500">
+                <invoice user="Albert Luk">20</invoice>
+                <invoice user="Sohrob Raja">15</invoice>
+                <invoice user="Minhnhut Vo">15</invoice>
+            </item>
+        </items>
+        <totalPot>1000</totalPot>
     </event>
 </history>

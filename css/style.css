@@ -75,6 +75,10 @@ li.ui-btn div.ui-li-has-alt {
 	padding:0px;
 }
 
+.form-dialog b {
+	line-height: 30px;
+}
+
 .ui-collapsible-headding li.ui-btn .ui-btn-inner .ui-btn-text a.ui-link-inherit {
 	padding:5px;
 }
